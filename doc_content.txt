@@ -1,0 +1,191 @@
+
+GraCitas
+Requerimientos funcionales y no funcionales, roles, permisos y módulos
+Descripción: GraCitas es una aplicación web para consultar y reservar canchas de fútbol sintético en Coracora, Ayacucho. Se desarrollará con PHP y Laravel, utilizando MySQL. Contará con tres roles: administrador, propietario y cliente. Los pagos se realizarán presencialmente en el establecimiento.
+1. Requerimientos Funcionales
+Los requerimientos funcionales describen las operaciones que GraCitas debe permitir realizar a sus usuarios.
+Código
+Característica
+Descripción
+RF-01
+Gestión de usuarios
+El sistema permitirá registrar usuarios, iniciar y cerrar sesión, actualizar perfiles y recuperar contraseñas.
+RF-02
+Control de acceso
+El sistema permitirá acceder a las funciones según los permisos del administrador, propietario o cliente.
+RF-03
+Administración del sistema
+El administrador podrá gestionar usuarios y supervisar establecimientos, canchas y reservas.
+RF-04
+Reportes generales
+El administrador podrá consultar reportes generales sobre usuarios, establecimientos, canchas y reservas.
+RF-05
+Gestión de establecimientos
+El propietario podrá registrar, consultar, actualizar y administrar sus propios establecimientos.
+RF-06
+Gestión de canchas
+El propietario podrá registrar y administrar las canchas de sus establecimientos, incluyendo características y precios.
+RF-07
+Gestión de horarios
+El propietario podrá configurar horarios de atención y bloquear fechas u horarios en los que sus canchas no estén disponibles.
+RF-08
+Consulta de establecimientos
+El cliente podrá consultar los establecimientos de Coracora, sus canchas, características, precios y ubicación.
+RF-09
+Consulta de disponibilidad
+El sistema permitirá consultar los días y horarios disponibles de una cancha para una fecha determinada.
+RF-10
+Reservas de clientes
+El cliente podrá seleccionar una cancha, fecha, hora y duración, ver el precio total y confirmar una reserva si existe disponibilidad.
+RF-11
+Registro manual de reservas
+El propietario podrá registrar reservas en nombre de un cliente cuando la solicitud se realice por llamada telefónica o presencialmente. Antes de guardarla, el sistema verificará la disponibilidad y registrará la información necesaria de la reserva.
+RF-12
+Consulta y cancelación de reservas
+Los clientes podrán consultar sus propias reservas y solicitar su cancelación según las reglas establecidas. Los propietarios podrán consultar y administrar las reservas de sus propias canchas.
+RF-13
+Código y estado de reserva
+El sistema asignará un código único a cada reserva y permitirá mantener actualizado su estado, por ejemplo: confirmada, cancelada, completada o no asistió.
+RF-14
+Gestión de pagos presenciales
+El propietario podrá registrar el pago recibido en el establecimiento y actualizar el estado de pago de la reserva.
+RF-15
+Reportes de reservas e ingresos
+El propietario podrá consultar reportes de reservas, pagos e ingresos de sus establecimientos.
+2. Requerimientos No Funcionales
+Los requerimientos no funcionales establecen las características de calidad, seguridad, usabilidad, compatibilidad y mantenimiento que debe cumplir el sistema.
+Código
+Característica
+Descripción
+RNF-01
+Tecnología
+El sistema debe desarrollarse utilizando PHP y el framework Laravel.
+RNF-02
+Base de datos
+El sistema debe utilizar MySQL para almacenar y gestionar la información.
+RNF-03
+Seguridad de contraseñas
+Las contraseñas deben almacenarse mediante mecanismos de hash seguros y nunca como texto plano.
+RNF-04
+Control de acceso
+El sistema debe restringir funciones y datos según el rol del usuario.
+RNF-05
+Usabilidad
+La interfaz debe ser clara, sencilla y fácil de utilizar.
+RNF-06
+Validación
+El sistema debe validar los datos en el servidor antes de almacenarlos.
+RNF-07
+Integridad de datos
+El sistema debe mantener la consistencia de la información y evitar reservas simultáneas para una misma cancha, fecha y horario.
+RNF-08
+Compatibilidad
+El sistema debe funcionar en versiones actuales de Chrome, Edge y Firefox.
+RNF-09
+Diseño adaptable
+La interfaz debe adaptarse a computadoras, tabletas y teléfonos móviles.
+RNF-10
+Arquitectura
+El código debe organizarse siguiendo el patrón MVC y las convenciones de Laravel.
+RNF-11
+Mensajes del sistema
+El sistema debe mostrar mensajes claros de confirmación, advertencia y error, sin exponer información sensible.
+RNF-12
+Mantenimiento
+El código debe estar organizado para facilitar correcciones y futuras ampliaciones.
+RNF-13
+Rendimiento
+Las operaciones principales deben responder en un tiempo adecuado bajo condiciones normales de uso.
+RNF-14
+Respaldo y conservación
+La información debe conservarse de forma consistente y contar con copias de seguridad periódicas según el entorno de despliegue.
+3. Roles y Permisos
+Administrador
+Tiene acceso a la administración general. Puede gestionar usuarios, supervisar establecimientos, canchas y reservas, y consultar reportes generales.
+Propietario
+Administra sus propios establecimientos y canchas, configura precios y horarios, consulta reservas, registra reservas manualmente por solicitudes telefónicas o presenciales, registra pagos recibidos presencialmente y consulta reportes de sus ingresos. No puede modificar establecimientos de otros propietarios ni administrar usuarios.
+Cliente
+Puede consultar establecimientos y disponibilidad, realizar reservas en línea, consultar su historial y cancelar sus propias reservas según las condiciones del sistema. No puede administrar establecimientos ni crear o modificar reservas de otros clientes.
+4. Matriz de Roles y Permisos
+✓ indica que la función está permitida; — indica que no está permitida.
+Permiso
+Administrador
+Propietario
+Cliente
+Iniciar y cerrar sesión
+✓
+✓
+✓
+Ver dashboard según el rol
+✓
+✓
+✓
+Gestionar usuarios
+✓
+—
+—
+Supervisar todos los establecimientos
+✓
+—
+—
+Registrar y editar sus establecimientos
+—
+✓
+—
+Gestionar sus propias canchas
+Supervisión
+✓
+—
+Configurar precios y horarios
+Supervisión
+✓
+—
+Bloquear horarios de sus canchas
+Supervisión
+✓
+—
+Consultar establecimientos y canchas
+✓
+✓
+✓
+Consultar disponibilidad
+✓
+✓
+✓
+Crear reserva en línea
+—
+—
+✓
+Crear reserva manual por llamada o presencial
+—
+✓
+—
+Consultar reservas
+Todas
+De sus canchas
+Propias
+Cancelar reservas
+Supervisión
+De sus canchas según reglas
+Propias según reglas
+Registrar pagos presenciales
+Supervisión
+✓
+—
+Consultar reportes
+Generales
+De sus establecimientos
+Historial propio
+Nota sobre reservas manuales: cuando el propietario registre una reserva recibida por teléfono o en persona, deberá seleccionar la cancha, fecha, hora y duración, comprobarse la disponibilidad y registrarse los datos básicos del cliente. La reserva manual debe bloquear ese horario para impedir que otro usuario lo reserve en línea.
+5. Módulos del Sistema
+Autenticación y perfiles: Inicio y cierre de sesión, recuperación de contraseña y actualización del perfil.
+Dashboard: Resumen de información y accesos según el rol.
+Gestión de usuarios: Administración de cuentas y roles por parte del administrador.
+Gestión de establecimientos: Registro y administración de establecimientos por los propietarios y supervisión del administrador.
+Gestión de canchas: Registro de canchas, características y precios.
+Horarios y disponibilidad: Configuración de horarios, consulta de franjas libres y bloqueo de horarios.
+Reservas en línea: Creación de reservas por los clientes y consulta de su historial.
+Reservas manuales: Registro por parte del propietario de solicitudes recibidas por teléfono o presencialmente.
+Pagos presenciales: Registro del pago recibido en el establecimiento y actualización del estado de pago.
+Reportes: Consulta de estadísticas de reservas e ingresos según los permisos de cada rol.
+Nota: GraCitas registra pagos presenciales y no procesa pagos en línea en esta versión. Las reglas de cancelación y los plazos aplicables deberán definirse en las reglas de negocio.

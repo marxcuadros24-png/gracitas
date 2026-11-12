@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" role="img" aria-labelledby="title desc">
+  <title id="title">GraCitas</title>
+  <desc id="desc">Logo minimalista de reservas de canchas con calendario, campo de fútbol y confirmación.</desc>
+  <rect width="640" height="520" fill="#ffffff"/>
+  <g transform="translate(0,8)" stroke="#087f68" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Calendario -->
+    <rect x="170" y="55" width="300" height="250" rx="34"/>
+    <path d="M170 112 H470"/>
+    <path d="M230 40 V78 M410 40 V78"/>
+    <!-- Campo de fútbol -->
+    <rect x="205" y="135" width="230" height="140" rx="5" stroke-width="7"/>
+    <path d="M320 135 V275" stroke-width="6"/>
+    <circle cx="320" cy="205" r="25" stroke-width="6"/>
+    <rect x="205" y="173" width="34" height="64" stroke-width="6"/>
+    <rect x="401" y="173" width="34" height="64" stroke-width="6"/>
+  </g>
+  <!-- Sello de reserva confirmada -->
+  <circle cx="443" cy="278" r="48" fill="#087f68" stroke="#ffffff" stroke-width="7"/>
+  <path d="M420 278 L436 294 L468 259" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Nombre -->
+  <text x="320" y="410" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="700" letter-spacing="-2">
+    <tspan fill="#252a2d">Gra</tspan><tspan fill="#087f68">Citas</tspan>
+  </text>
+  <text x="320" y="450" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="500" letter-spacing="3" fill="#687477">RESERVA TU CANCHA</text>
+</svg>
