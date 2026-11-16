@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CanchaPublicController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PropietarioBloqueoController;
 use App\Http\Controllers\PropietarioCanchaController;
 use App\Http\Controllers\PropietarioDashboardController;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/lang/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
 Route::get('/api/documentation', [SwaggerDocController::class, 'index'])->name('swagger.ui');
 Route::get('/api/openapi.json', [SwaggerDocController::class, 'openapi'])->name('swagger.spec');
 Route::get('/establecimiento/{establecimiento}', [CanchaPublicController::class, 'showEstablecimiento'])->name('canchas.establecimiento');

@@ -1,4 +1,4 @@
-<x-layouts.app title="Acceso al Sistema - GraCitas">
+<x-layouts.app :title="__('messages.auth.login_title') . ' - GraCitas'">
 <div class="auth-page-wrapper">
     <div class="auth-card-container">
         <!-- Encabezado Institucional Formal -->
@@ -7,11 +7,11 @@
                 <img src="{{ asset('images/logo.svg') }}" alt="GraCitas Logo" class="auth-brand-logo">
                 <div class="auth-brand-text">
                     <span class="brand-title">Gra<span>Citas</span></span>
-                    <span class="brand-tagline">Sistema de Gestión de Canchas Sintéticas</span>
+                    <span class="brand-tagline">{{ __('messages.demo_banner') }}</span>
                 </div>
             </div>
-            <h1 class="auth-title">Acceso al Sistema</h1>
-            <p class="auth-subtitle">Ingrese sus credenciales registradas para acceder a su panel de gestión o realizar reservas deportivas.</p>
+            <h1 class="auth-title">{{ __('messages.auth.login_title') }}</h1>
+            <p class="auth-subtitle">{{ __('messages.auth.already_registered') }} {{ __('messages.home.hero_subtitle') }}</p>
         </div>
 
         <!-- Módulo Discreto de Demostración Académica -->
@@ -19,22 +19,22 @@
             <div class="demo-acc-header" onclick="toggleDemoPanel()">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <x-icon name="shield" size="14" style="color: var(--primary);" />
-                    <span>Cuentas de evaluación académica (Clic para autocompletar)</span>
+                    <span>{{ __('messages.demo_test_accounts') }} (Clic para autocompletar)</span>
                 </div>
                 <span id="demo-toggle-icon" style="font-size: 0.75rem; color: var(--text-muted);">▼</span>
             </div>
             <div id="demo-acc-body" class="demo-acc-body" style="display: none;">
                 <div class="demo-buttons-grid">
                     <button type="button" class="btn-demo-quick" onclick="setLogin('admin@gracitas.com', 'admin123')">
-                        <strong>Administrador</strong>
+                        <strong>Admin</strong>
                         <span>admin@gracitas.com</span>
                     </button>
                     <button type="button" class="btn-demo-quick" onclick="setLogin('propietario@gracitas.com', 'propietario123')">
-                        <strong>Propietario</strong>
+                        <strong>Propietario / Owner</strong>
                         <span>propietario@gracitas.com</span>
                     </button>
                     <button type="button" class="btn-demo-quick" onclick="setLogin('cliente@gracitas.com', 'cliente123')">
-                        <strong>Cliente</strong>
+                        <strong>Cliente / Player</strong>
                         <span>cliente@gracitas.com</span>
                     </button>
                 </div>
@@ -48,7 +48,7 @@
             <!-- Campo Correo Electrónico -->
             <div class="form-group-formal">
                 <label for="email" class="form-label-formal">
-                    Correo Electrónico Institucional o Personal <span class="req">*</span>
+                    {{ __('messages.auth.email') }} <span class="req">*</span>
                 </label>
                 <div class="input-with-icon">
                     <span class="input-icon">
@@ -75,10 +75,10 @@
             <div class="form-group-formal">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
                     <label for="password" class="form-label-formal" style="margin-bottom: 0;">
-                        Contraseña de Seguridad <span class="req">*</span>
+                        {{ __('messages.auth.password') }} <span class="req">*</span>
                     </label>
                     <a href="{{ route('password.request') }}" class="link-forgot-pass">
-                        ¿Olvidó su contraseña?
+                        {{ __('messages.auth.forgot_password') }}
                     </a>
                 </div>
                 <div class="input-with-icon">
@@ -107,13 +107,13 @@
             <div class="form-options-row">
                 <label class="remember-checkbox-label">
                     <input type="checkbox" name="remember" class="custom-checkbox" {{ old('remember') ? 'checked' : '' }}>
-                    <span>Recordar sesión en este equipo</span>
+                    <span>{{ __('messages.auth.remember') }}</span>
                 </label>
             </div>
 
             <!-- Botón Principal de Acceso -->
             <button type="submit" class="btn-submit-formal">
-                <span>Ingresar al Sistema</span>
+                <span>{{ __('messages.nav.login') }}</span>
                 <x-icon name="arrow-right" size="18" />
             </button>
         </form>
@@ -125,8 +125,8 @@
                 <span>Acceso protegido con cifrado SSL/TLS. La cuenta requiere verificación obligatoria por correo para garantizar la autenticidad de los usuarios.</span>
             </div>
             <div class="auth-switch-link">
-                ¿Aún no dispone de una cuenta? 
-                <a href="{{ route('register') }}">Registrarse formalmente</a>
+                {{ __('messages.auth.no_account') }} 
+                <a href="{{ route('register') }}">{{ __('messages.nav.register') }}</a>
             </div>
         </div>
     </div>
