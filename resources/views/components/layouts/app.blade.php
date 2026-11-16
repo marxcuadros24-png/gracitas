@@ -176,38 +176,99 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
+        <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px;">
             <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
-                    <img src="{{ asset('images/logo.svg') }}" alt="Logo" style="height: 36px; background: white; padding: 4px; border-radius: 6px;">
-                    <h3 style="color: white; font-size: 1.4rem;">GraCitas</h3>
+                    <img src="{{ asset('images/logo.svg') }}" alt="Logo" style="height: 38px; background: white; padding: 4px; border-radius: 8px;">
+                    <h3 style="color: white; font-size: 1.5rem; font-weight: 800;">GraCitas</h3>
                 </div>
-                <p style="font-size: 0.9rem; line-height: 1.6;">
+                <p style="font-size: 0.9rem; line-height: 1.6; color: #94a3b8; margin-bottom: 18px;">
                     {{ __('messages.footer.description') }}
                 </p>
+                <!-- Redes Sociales -->
+                <div style="display: flex; gap: 10px;">
+                    <a href="https://facebook.com" target="_blank" rel="noopener" class="badge" style="background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 6px 12px; font-size: 0.8rem;">
+                        Facebook
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener" class="badge" style="background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 6px 12px; font-size: 0.8rem;">
+                        Instagram
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener" class="badge" style="background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 6px 12px; font-size: 0.8rem;">
+                        TikTok
+                    </a>
+                    <a href="https://wa.me/51966123456?text=Hola%20GraCitas%2C%20quisiera%20consultar%20sobre%20una%20cancha" target="_blank" rel="noopener" class="badge" style="background: #059669; color: white; border: none; padding: 6px 12px; font-size: 0.8rem;">
+                        WhatsApp
+                    </a>
+                </div>
             </div>
+
             <div>
-                <h4 style="color: white; margin-bottom: 14px;">{{ __('messages.footer.quick_links') }}</h4>
-                <ul style="list-style: none; font-size: 0.9rem; line-height: 2;">
+                <h4 style="color: white; margin-bottom: 14px; font-size: 1.05rem;">{{ __('messages.footer.quick_links') }}</h4>
+                <ul style="list-style: none; font-size: 0.9rem; line-height: 2.2;">
                     <li><a href="{{ route('home') }}" style="color: #cbd5e1;">{{ __('messages.footer.explore_facilities') }}</a></li>
-                    <li><a href="{{ route('login') }}" style="color: #cbd5e1;">{{ __('messages.footer.owner_portal') }}</a></li>
+                    <li><a href="{{ route('home') }}#como-funciona" style="color: #cbd5e1;">{{ __('messages.home.how_it_works_title') }}</a></li>
+                    <li><a href="{{ route('home') }}#canchas-populares" style="color: #cbd5e1;">{{ __('messages.home.catalog_popular_title') }}</a></li>
+                    <li><a href="{{ route('register') }}?rol=propietario" style="color: #6ee7b7; font-weight: 700;">{{ __('messages.home.b2b_cta') }} (B2B)</a></li>
                     <li><a href="{{ route('login') }}" style="color: #cbd5e1;">{{ __('messages.nav.login') }}</a></li>
-                    <li><a href="{{ route('register') }}" style="color: #cbd5e1;">{{ __('messages.footer.create_client_account') }}</a></li>
                 </ul>
             </div>
+
             <div>
-                <h4 style="color: white; margin-bottom: 14px;">{{ __('messages.footer.location_title') }}</h4>
-                <p style="font-size: 0.9rem; line-height: 1.8; color: #cbd5e1;">
-                    <x-icon name="map-pin" size="14" /> {{ __('messages.footer.location_address') }}<br>
-                    <x-icon name="ball" size="14" /> {{ __('messages.footer.location_pitches') }}<br>
-                    <x-icon name="dollar" size="14" /> {{ __('messages.footer.location_payments') }}
+                <h4 style="color: white; margin-bottom: 14px; font-size: 1.05rem;">Cumplimiento Legal</h4>
+                <ul style="list-style: none; font-size: 0.9rem; line-height: 2.2;">
+                    <li><a href="{{ route('terminos') }}" style="color: #cbd5e1;">{{ __('messages.footer.terms') }}</a></li>
+                    <li><a href="{{ route('privacidad') }}" style="color: #cbd5e1;">{{ __('messages.footer.privacy') }}</a></li>
+                    <li>
+                        <a href="mailto:soporte@gracitas.com?subject=Libro%20de%20Reclamaciones%20GraCitas" style="color: #cbd5e1; display: inline-flex; align-items: center; gap: 6px;">
+                            📖 {{ __('messages.footer.complaints_book') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('swagger.ui') }}" style="color: #a7f3d0;" target="_blank">
+                            ⚡ Swagger API / OpenAPI 3.0
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 style="color: white; margin-bottom: 14px; font-size: 1.05rem;">{{ __('messages.footer.payment_methods_title') }}</h4>
+                <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.5; margin-bottom: 12px;">
+                    Pagos presenciales y pasarelas de pago online seguras:
+                </p>
+                <div class="payment-badges-row">
+                    <span class="payment-badge yape">Yape</span>
+                    <span class="payment-badge plin">Plin</span>
+                    <span class="payment-badge izipay">IziPay</span>
+                    <span class="payment-badge niubiz">Niubiz</span>
+                    <span class="payment-badge">💳 Visa / MC</span>
+                    <span class="payment-badge" style="background: #ecfdf5; color: #065f46; border-color: #6ee7b7;">💵 Efectivo</span>
+                </div>
+                <p style="font-size: 0.8rem; color: #64748b; margin-top: 14px;">
+                    <x-icon name="map-pin" size="13" /> Coracora, Parinacochas, Ayacucho, Perú.
                 </p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} GraCitas — {{ __('messages.footer.rights_reserved') }}</p>
+
+        <div class="footer-bottom" style="margin-top: 36px;">
+            <p>&copy; {{ date('Y') }} GraCitas — {{ __('messages.footer.rights_reserved') }} | Coracora, Ayacucho.</p>
         </div>
     </footer>
+
+    <!-- Mobile Quick Sticky Action Bar -->
+    <div class="mobile-sticky-bar">
+        <div>
+            <div style="font-size: 0.72rem; color: #a7f3d0; font-weight: 700; text-transform: uppercase;">
+                <span class="pulse-dot"></span> {{ __('messages.home.stats_live') }}
+            </div>
+            <div style="font-size: 0.88rem; color: #ffffff; font-weight: 800;">
+                Canchas en Coracora
+            </div>
+        </div>
+        <a href="#canchas-populares" class="btn btn-primary" style="padding: 10px 18px; font-size: 0.85rem; font-weight: 700; border-radius: 9999px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);">
+            <x-icon name="ball" /> {{ __('messages.home.cta_primary') }}
+        </a>
+    </div>
 
     <div id="reverb-toast-container" style="position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; max-width: 360px;"></div>
 

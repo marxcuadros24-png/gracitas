@@ -25,9 +25,16 @@ class HomeController extends Controller
 
         $establecimientos = $query->paginate(9);
 
+        // Canchas populares para el catálogo E-Commerce
+        $canchasPopulares = Cancha::where('activa', 1)
+            ->with('establecimiento')
+            ->orderBy('precio_hora', 'asc')
+            ->take(6)
+            ->get();
+
         $totalCanchas = Cancha::where('activa', 1)->count();
         $totalEstablecimientos = Establecimiento::where('activo', 1)->count();
 
-        return view('home', compact('establecimientos', 'totalCanchas', 'totalEstablecimientos'));
+        return view('home', compact('establecimientos', 'canchasPopulares', 'totalCanchas', 'totalEstablecimientos'));
     }
 }

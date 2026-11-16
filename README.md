@@ -50,6 +50,13 @@ Para los dueños de complejos deportivos y los administradores generales, la pla
 
 ##  Características Principales
 
+- **Landing Page E-Commerce & Mobile Marketing (Mobile First)**:
+  - Cabecera hero con propuesta de valor B2C en Coracora (*"Reserva tu cancha sintética en Coracora en menos de 1 minuto"*), buscador y CTA directo `[Ver Canchas Disponibles]`.
+  - Flujo logístico visual en 3 pasos: (1) Elige cancha y horario, (2) Paga seguro (total o abono), (3) ¡Recibe confirmación y a jugar!
+  - Catálogo e-commerce de canchas populares con especificaciones de grass sintético, capacidad de jugadores, tarifas y botón de reserva directa.
+  - Prueba social (Social Proof) con testimonios reales de capitanes de Coracora y calificación 5 estrellas.
+  - Sección de captación B2B (*"¿Eres dueño de una cancha? Únete como Partner"*) para dueños de locales deportivos.
+  - Cumplimiento legal y pasarelas de pago: Términos y Condiciones (`/terminos`), Políticas de Privacidad (`/privacidad` - Ley N° 29733), Libro de Reclamaciones, IziPay, Niubiz, Yape, Plin y Efectivo en ventanilla.
 - **Seguridad Avanzada con JWT (JSON Web Tokens)**:
   - Autenticación criptográfica sin estado con algoritmo HMAC SHA-256 (`tymon/jwt-auth`).
   - Emisión de tokens de acceso (`access_token`), tiempo de expiración configurable (`expires_in`) y renovación segura (`/api/auth/refresh`).
@@ -278,6 +285,7 @@ php artisan test
 ```
 
 ### Cobertura de Pruebas:
+- `tests/Feature/LandingPageTest.php`: Verificación integral de la landing page mobile-marketing, titular hero, 3 pasos de reserva, catálogo e-commerce de canchas populares, prueba social B2C, captación B2B, pie de página y páginas legales (`/terminos` y `/privacidad`).
 - `tests/Feature/RateLimitingTest.php`: Protección contra fuerza bruta en login web/API, límite de peticiones de registro, protección de endpoint de recuperación de contraseñas, validación de cabeceras `Retry-After`, `X-RateLimit-Limit` y respuesta HTTP 429.
 - `tests/Feature/JwtAuthenticationTest.php`: Emisión de tokens Bearer JWT, validación de credenciales, decodificación de claims (rol, activo), endpoint `/api/auth/me`, refresco y logout/revocación.
 - `tests/Feature/LocaleTest.php`: Cambio entre idiomas (ES, EN, FR), middleware de sesión, persistencia y rechazo de locales no válidos.
