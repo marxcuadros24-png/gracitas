@@ -136,14 +136,6 @@
             </div>
         @endif
     @endauth
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <a href="{{ route('verification.notice') }}" class="btn btn-outline btn-sm" style="padding: 4px 12px; font-size: 0.8rem; background: white; border-color: #d97706; color: #92400e;">
-                        <x-icon name="mail" size="13" /> Verificar ahora
-                    </a>
-                </div>
-            </div>
-        @endif
-    @endauth
 
     <!-- Alertas Flash -->
     <div class="alert-wrap">
