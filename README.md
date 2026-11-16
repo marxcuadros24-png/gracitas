@@ -1,4 +1,4 @@
-# GraCitas ⚽ — Plataforma de Gestión y Reserva de Canchas Sintéticas
+# GraCitas  — Plataforma de Gestión y Reserva de Canchas Sintéticas
 
 <p align="center">
   <img src="public/images/logo.svg" alt="GraCitas Logo" width="120" style="vertical-align: middle;">
@@ -21,7 +21,7 @@
 
 ---
 
-## 📋 Tabla de Contenidos
+##  Tabla de Contenidos
 
 1. [Descripción General](#-descripción-general)
 2. [Características Principales](#-características-principales)
@@ -39,7 +39,7 @@
 
 ---
 
-## 🌟 Descripción General
+##  Descripción General
 
 **GraCitas** nace como una solución moderna orientada al comercio local en **Coracora (Ayacucho)**, facilitando que los deportistas y equipos de fútbol verifiquen la disponibilidad exacta de canchas sintéticas (F5, F7, F8) en segundos, aparten su turno sin riesgo de colisiones horarias y cancelen su reserva en ventanilla al momento del juego (Efectivo / Yape / Plin).
 
@@ -47,39 +47,39 @@ Para los dueños de complejos deportivos y los administradores generales, la pla
 
 ---
 
-## 🚀 Características Principales
+##  Características Principales
 
-- 🛡️ **Seguridad Avanzada con JWT (JSON Web Tokens)**:
+- **Seguridad Avanzada con JWT (JSON Web Tokens)**:
   - Autenticación criptográfica sin estado con algoritmo HMAC SHA-256 (`tymon/jwt-auth`).
   - Emisión de tokens de acceso (`access_token`), tiempo de expiración configurable (`expires_in`) y renovación segura (`/api/auth/refresh`).
   - Claims personalizados integrados en el payload (rol, estado activo, email, nombre).
   - Invalidación y revocación inmediata mediante lista negra en el logout (`/api/auth/logout`).
-- ⚡ **Actualizaciones en Tiempo Real (Laravel Reverb)**:
+- **Actualizaciones en Tiempo Real (Laravel Reverb)**:
   - Eventos de difusión por WebSockets nativos (`cancha.{id}` y canal privado `establecimiento.{id}`).
   - Actualización inmediata del calendario de disponibilidad cuando otro usuario reserva o cancela.
   - Alertas flotantes (toasts) instantáneas para los propietarios cuando reciben una nueva reserva.
-- 🌐 **Soporte Multilingüe Completo (ES / EN / FR)**:
+-  **Soporte Multilingüe Completo (ES / EN / FR)**:
   - Selector dinámico de idioma en la cabecera (Español 🇪🇸, Inglés 🇬🇧, Francés 🇫🇷).
   - Persistencia de idioma mediante sesión y cookies, respetando el atributo HTML `<html lang="...">`.
   - Diccionarios completos de traducción tanto en formato PHP (`lang/{locale}/messages.php`) como JSON (`lang/{locale}.json`).
-- 📖 **Documentación Interactiva Swagger / OpenAPI 3.0**:
+-  **Documentación Interactiva Swagger / OpenAPI 3.0**:
   - UI interactiva integrada en `/api/documentation`.
   - Especificación OpenAPI disponible en `/api/openapi.json`.
   - Exploración y prueba de endpoints de disponibilidad, autenticación y canales WebSocket.
-- ✉️ **Seguridad y Verificación de Correo**:
+-  **Seguridad y Verificación de Correo**:
   - Verificación por correo electrónico con pantalla de aviso personalizada y protección por middleware (`EnsureEmailIsVerifiedCustom`).
   - Recuperación de contraseña mediante enlace seguro enviado por email.
-- 👥 **Gestión por Roles y Permisos (RBAC)**:
+-  **Gestión por Roles y Permisos (RBAC)**:
   - Vistas, barras de navegación y políticas de acceso personalizadas para **Administrador**, **Propietario** y **Cliente**.
-- 💵 **Modelo de Pago Presencial Adaptado a la Región**:
+-  **Modelo de Pago Presencial Adaptado a la Región**:
   - Sin necesidad de pasarelas de pago con comisiones bancarias elevadas.
   - Generación de comprobante digital con código de reserva único para pago presencial en el local.
-- 📱 **Diseño Responsivo y Experiencia de Usuario Moderna**:
+-  **Diseño Responsivo y Experiencia de Usuario Moderna**:
   - Interfaz limpia, optimizada para móviles y tablets con paleta de colores institucional y tipografía Plus Jakarta Sans / Outfit.
 
 ---
 
-## 🛠 Tecnologías y Stack
+##  Tecnologías y Stack
 
 | Capa | Tecnologías |
 |------|-------------|
@@ -94,7 +94,7 @@ Para los dueños de complejos deportivos y los administradores generales, la pla
 
 ---
 
-## 🔐 Roles y Permisos (RBAC)
+##  Roles y Permisos (RBAC)
 
 ```mermaid
 graph TD
@@ -125,21 +125,8 @@ graph TD
 
 ---
 
-## 🎯 Cuentas de Demostración
 
-El sistema incluye seeders con cuentas de evaluación académica y comercial listas para usar:
-
-| Rol | Correo Electrónico | Contraseña | Descripción |
-|-----|-------------------|------------|-------------|
-| **Administrador** | `admin@gracitas.com` | `admin123` | Control total, supervisión global y auditoría. |
-| **Propietario** | `propietario@gracitas.com` | `propietario123` | Dueño del complejo deportivo *"El Golazo de Coracora"*. |
-| **Cliente** | `cliente@gracitas.com` | `cliente123` | Deportista verificado con historial de partidos. |
-
-> *En la pantalla de inicio de sesión (`/login`), se incluye un panel desplegable de acceso rápido con un clic para evaluar cualquiera de los tres roles sin tipear credenciales.*
-
----
-
-## 💻 Instalación y Configuración
+##  Instalación y Configuración
 
 ### 1. Requisitos Previos
 - **PHP** >= 8.2 (con extensiones `pdo_mysql`, `curl`, `mbstring`, `openssl`, `intl`, `xml`).
@@ -203,7 +190,7 @@ La aplicación estará accesible en: [http://127.0.0.1:8000](http://127.0.0.1:80
 
 ---
 
-## ⚡ WebSockets con Laravel Reverb
+##  WebSockets con Laravel Reverb
 
 Para activar la transmisión en vivo de reservas y notificaciones para propietarios:
 
@@ -217,7 +204,7 @@ php artisan reverb:start
 
 ---
 
-## 📖 Documentación API (Swagger / OpenAPI 3.0)
+##  Documentación API (Swagger / OpenAPI 3.0)
 
 La API RESTful cuenta con documentación interactiva bajo la especificación OpenAPI 3.0:
 
@@ -231,7 +218,7 @@ La API RESTful cuenta con documentación interactiva bajo la especificación Ope
 
 ---
 
-## 🌐 Soporte Multilingüe (ES / EN / FR)
+##  Soporte Multilingüe (ES / EN / FR)
 
 GraCitas soporta tres idiomas accesibles desde la barra de navegación:
 - **Español (ES)**: `http://127.0.0.1:8000/lang/es` (idioma predeterminado)
@@ -242,7 +229,7 @@ La selección se guarda automáticamente en la sesión del usuario y en una cook
 
 ---
 
-## 📑 Manual de Usuario Comercial
+## Manual de Usuario Comercial
 
 El proyecto incluye un manual de usuario integral de 19 páginas diseñado con enfoque comercial y capturas reales del DOM:
 
@@ -253,7 +240,7 @@ El proyecto incluye un manual de usuario integral de 19 páginas diseñado con e
 
 ---
 
-## 🌿 Flujo de Trabajo Git Flow
+##  Flujo de Trabajo Git Flow
 
 El repositorio sigue estrictamente el modelo de ramificación **Git Flow**:
 
@@ -272,7 +259,7 @@ feature/multilanguage         ●───●─●         (Nuevas Funcionalida
 
 ---
 
-## 🧪 Pruebas Automatizadas
+##  Pruebas Automatizadas
 
 La aplicación cuenta con una suite de pruebas automatizadas con **PHPUnit 12**:
 
@@ -293,12 +280,12 @@ php artisan test
 
 ---
 
-## 📄 Licencia
+##  Licencia
 
 Este proyecto está bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para más información.
 
 ---
 
 <p align="center">
-  <strong>GraCitas Coracora</strong> — Desarrollado con ❤️ para el fútbol ayacuchano y la modernización deportiva.
+  <strong>GraCitas Coracora</strong> — Desarrollado con para el fútbol ayacuchano y la modernización deportiva.
 </p>
