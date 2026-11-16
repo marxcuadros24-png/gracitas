@@ -233,8 +233,16 @@
                     wsPort: wsPort,
                     wssPort: wsPort,
                     forceTLS: forceTLS,
-                    enabledTransports: ['ws', 'wss'],
+                    enabledTransports: forceTLS ? ['wss'] : ['ws'],
                 });
+
+                if (window.Echo && window.Echo.connector && window.Echo.connector.pusher) {
+                    window.Echo.connector.pusher.connection.bind('state_change', function (states) {
+                        if (window.console && console.debug) {
+                            console.debug('[Reverb WS] Estado:', states.current);
+                        }
+                    });
+                }
 
                 window.gracitasToast = function (titulo, detalle, tipo = 'info') {
                     const container = document.getElementById('reverb-toast-container');
