@@ -34,6 +34,8 @@ Route::get('/cancha/{cancha}', [CanchaPublicController::class, 'showCancha'])->n
 Route::get('/cancha/{cancha}/disponibilidad', [CanchaPublicController::class, 'getDisponibilidadApi'])
     ->middleware('throttle:disponibilidad')
     ->name('canchas.disponibilidad');
+Route::view('/terminos', 'pages.terminos')->name('terminos');
+Route::view('/privacidad', 'pages.privacidad')->name('privacidad');
 
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\PasswordResetController;
