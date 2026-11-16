@@ -280,5 +280,5 @@ Este proyecto está bajo la Licencia **MIT**. Consulta el archivo `LICENSE` para
 ---
 
 <p align="center">
-  <strong>GraCitas Coracora</strong> — Desarrollado con ❤️ para el fútbol ayacuchano y la modernización deportiva.
+  <strong>GraCitas Coracora</strong> — Desarrollado con para el fútbol ayacuchano y la modernización deportiva.
 </p>
