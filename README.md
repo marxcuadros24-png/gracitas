@@ -13,6 +13,7 @@
   <a href="https://www.php.net"><img src="https://img.shields.io/badge/PHP-8.5-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.5"></a>
   <a href="https://laravel.com/docs/reverb"><img src="https://img.shields.io/badge/Laravel_Reverb-WebSockets-F97316?style=for-the-badge&logo=laravel&logoColor=white" alt="Reverb WebSockets"></a>
   <a href="https://jwt.io"><img src="https://img.shields.io/badge/Security-JWT_Auth-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT Auth"></a>
+  <a href="https://laravel.com/docs/rate-limiting"><img src="https://img.shields.io/badge/Security-Rate_Limiting-10B981?style=for-the-badge&logo=shield&logoColor=white" alt="Rate Limiting"></a>
   <a href="https://swagger.io"><img src="https://img.shields.io/badge/Swagger-OpenAPI_3.0-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="Swagger OpenAPI 3.0"></a>
   <img src="https://img.shields.io/badge/Languages-ES_%7C_EN_%7C_FR-047857?style=for-the-badge" alt="Multilingual ES EN FR">
   <img src="https://img.shields.io/badge/Git_Flow-Workflow-1E293B?style=for-the-badge&logo=git&logoColor=white" alt="Git Flow">
@@ -54,6 +55,11 @@ Para los dueños de complejos deportivos y los administradores generales, la pla
   - Emisión de tokens de acceso (`access_token`), tiempo de expiración configurable (`expires_in`) y renovación segura (`/api/auth/refresh`).
   - Claims personalizados integrados en el payload (rol, estado activo, email, nombre).
   - Invalidación y revocación inmediata mediante lista negra en el logout (`/api/auth/logout`).
+- **Limitación de Tasa y Protección contra Abuso (Rate Limiting)**:
+  - Protección contra ataques de fuerza bruta, credential stuffing y flooding mediante middleware `throttle`.
+  - Endpoints de autenticación API (`/api/auth/login`, `/api/auth/register`) limitados a 5 intentos/minuto por credencial e IP.
+  - Acceso Web (`/login`, `/register`) con bloqueo por IP/cuenta y respuesta amigable 429 con vista institucional dedicada (`errors/429.blade.php`).
+  - Consulta de disponibilidad pública limitada a 60 peticiones/minuto y recuperación de contraseñas a 3 intentos/minuto.
 - **Actualizaciones en Tiempo Real (Laravel Reverb)**:
   - Eventos de difusión por WebSockets nativos (`cancha.{id}` y canal privado `establecimiento.{id}`).
   - Actualización inmediata del calendario de disponibilidad cuando otro usuario reserva o cancela.
@@ -272,6 +278,7 @@ php artisan test
 ```
 
 ### Cobertura de Pruebas:
+- `tests/Feature/RateLimitingTest.php`: Protección contra fuerza bruta en login web/API, límite de peticiones de registro, protección de endpoint de recuperación de contraseñas, validación de cabeceras `Retry-After`, `X-RateLimit-Limit` y respuesta HTTP 429.
 - `tests/Feature/JwtAuthenticationTest.php`: Emisión de tokens Bearer JWT, validación de credenciales, decodificación de claims (rol, activo), endpoint `/api/auth/me`, refresco y logout/revocación.
 - `tests/Feature/LocaleTest.php`: Cambio entre idiomas (ES, EN, FR), middleware de sesión, persistencia y rechazo de locales no válidos.
 - `tests/Feature/SwaggerDocumentationTest.php`: Disponibilidad del Swagger UI y validación estructural del JSON OpenAPI 3.0.
