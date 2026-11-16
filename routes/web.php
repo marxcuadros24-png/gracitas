@@ -31,7 +31,9 @@ Route::get('/api/documentation', [SwaggerDocController::class, 'index'])->name('
 Route::get('/api/openapi.json', [SwaggerDocController::class, 'openapi'])->name('swagger.spec');
 Route::get('/establecimiento/{establecimiento}', [CanchaPublicController::class, 'showEstablecimiento'])->name('canchas.establecimiento');
 Route::get('/cancha/{cancha}', [CanchaPublicController::class, 'showCancha'])->name('canchas.detalle');
-Route::get('/cancha/{cancha}/disponibilidad', [CanchaPublicController::class, 'getDisponibilidadApi'])->name('canchas.disponibilidad');
+Route::get('/cancha/{cancha}/disponibilidad', [CanchaPublicController::class, 'getDisponibilidadApi'])
+    ->middleware('throttle:disponibilidad')
+    ->name('canchas.disponibilidad');
 
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\PasswordResetController;
@@ -43,15 +45,15 @@ use App\Http\Controllers\PasswordResetController;
 */
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:web.login');
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:web.register');
 
     // Recuperación de Contraseña
     Route::get('/forgot-password', [PasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
-    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])->middleware('throttle:password.reset')->name('password.email');
     Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
-    Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
+    Route::post('/reset-password', [PasswordResetController::class, 'reset'])->middleware('throttle:password.reset')->name('password.update');
 });
 
 Route::middleware('auth')->group(function () {

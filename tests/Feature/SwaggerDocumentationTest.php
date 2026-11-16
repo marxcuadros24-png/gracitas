@@ -20,7 +20,7 @@ class SwaggerDocumentationTest extends TestCase
         $this->getJson(route('swagger.spec'))
             ->assertOk()
             ->assertJsonPath('openapi', '3.0.3')
-            ->assertJsonPath('info.version', '2.2.0')
+            ->assertJsonPath('info.version', '2.3.0')
             ->assertJsonStructure([
                 'openapi',
                 'info' => ['title', 'version', 'description'],
@@ -44,6 +44,7 @@ class SwaggerDocumentationTest extends TestCase
                         'SlotDisponibilidad',
                         'DisponibilidadResponse',
                         'User',
+                        'RateLimitErrorResponse',
                     ],
                 ],
             ]);
