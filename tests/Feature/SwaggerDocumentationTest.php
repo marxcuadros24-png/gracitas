@@ -20,12 +20,17 @@ class SwaggerDocumentationTest extends TestCase
         $this->getJson(route('swagger.spec'))
             ->assertOk()
             ->assertJsonPath('openapi', '3.0.3')
-            ->assertJsonPath('info.version', '2.0.0')
+            ->assertJsonPath('info.version', '2.2.0')
             ->assertJsonStructure([
                 'openapi',
                 'info' => ['title', 'version', 'description'],
                 'servers',
                 'paths' => [
+                    '/api/auth/login',
+                    '/api/auth/register',
+                    '/api/auth/me',
+                    '/api/auth/refresh',
+                    '/api/auth/logout',
                     '/cancha/{cancha}/disponibilidad',
                     '/api/user',
                     '/broadcasting/auth',
@@ -33,6 +38,9 @@ class SwaggerDocumentationTest extends TestCase
                 'components' => [
                     'securitySchemes' => ['bearerAuth', 'cookieAuth'],
                     'schemas' => [
+                        'JwtLoginRequest',
+                        'JwtRegisterRequest',
+                        'JwtTokenResponse',
                         'SlotDisponibilidad',
                         'DisponibilidadResponse',
                         'User',

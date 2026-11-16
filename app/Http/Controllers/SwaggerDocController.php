@@ -29,8 +29,11 @@ class SwaggerDocController extends Controller
             'openapi' => '3.0.3',
             'info' => [
                 'title' => 'GraCitas API — Gestión y Reserva de Canchas de Gras Sintético',
-                'version' => '2.0.0',
-                'description' => "Documentación oficial de los servicios JSON REST y eventos en tiempo real (WebSockets vía Laravel Reverb) de la plataforma GraCitas.\n\n"
+                'version' => '2.2.0',
+                'description' => "Documentación oficial de los servicios JSON REST, autenticación JWT y eventos en tiempo real (WebSockets vía Laravel Reverb) de la plataforma GraCitas.\n\n"
+                    ."### Seguridad y Autenticación JWT\n"
+                    ."- Todos los endpoints bajo `/api/auth/*` y `/api/user` utilizan **JSON Web Tokens (JWT)** con algoritmo HS256 y firma criptográfica.\n"
+                    ."- Envíe el token en la cabecera HTTP: `Authorization: Bearer {access_token}`.\n\n"
                     ."### Canales WebSocket (Laravel Reverb — Puerto 8080)\n"
                     ."- **Canal Público `cancha.{canchaId}`** → Evento `.disponibilidad.actualizada`: notifica altas, cancelaciones o bloqueos horarios para refrescar los turnos en vivo.\n"
                     .'- **Canal Privado `private-establecimiento.{establecimientoId}`** → Evento `.reserva.notificada`: alerta en vivo al propietario autenticado sobre nuevas reservas o cancelaciones.',
@@ -43,12 +46,12 @@ class SwaggerDocController extends Controller
             ],
             'tags' => [
                 [
-                    'name' => 'Disponibilidad Pública',
-                    'description' => 'Consulta en vivo de franjas horarias de canchas deportivas.',
+                    'name' => 'Autenticación JWT',
+                    'description' => 'Emisión, verificación, refresco y revocación de tokens JWT (JSON Web Tokens).',
                 ],
                 [
-                    'name' => 'Autenticación y Usuario (Sanctum)',
-                    'description' => 'Endpoints protegidos mediante token Bearer de Laravel Sanctum.',
+                    'name' => 'Disponibilidad Pública',
+                    'description' => 'Consulta en vivo de franjas horarias de canchas deportivas.',
                 ],
                 [
                     'name' => 'WebSockets (Laravel Reverb)',
@@ -111,11 +114,146 @@ class SwaggerDocController extends Controller
                         ],
                     ],
                 ],
+                '/api/auth/login' => [
+                    'post' => [
+                        'tags' => ['Autenticación JWT'],
+                        'summary' => 'Iniciar sesión y obtener token JWT',
+                        'description' => 'Verifica credenciales del usuario y emite un token JWT (JSON Web Token) válido para autenticar solicitudes API.',
+                        'requestBody' => [
+                            'required' => true,
+                            'content' => [
+                                'application/json' => [
+                                    'schema' => [
+                                        '$ref' => '#/components/schemas/JwtLoginRequest',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'responses' => [
+                            '200' => [
+                                'description' => 'Autenticación exitosa y emisión de token JWT',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/JwtTokenResponse',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            '401' => [
+                                'description' => 'Credenciales inválidas',
+                            ],
+                            '403' => [
+                                'description' => 'Cuenta inactiva',
+                            ],
+                        ],
+                    ],
+                ],
+                '/api/auth/register' => [
+                    'post' => [
+                        'tags' => ['Autenticación JWT'],
+                        'summary' => 'Registrar nuevo usuario vía API y obtener token JWT',
+                        'description' => 'Crea una nueva cuenta de cliente o propietario y devuelve un token JWT listo para usar.',
+                        'requestBody' => [
+                            'required' => true,
+                            'content' => [
+                                'application/json' => [
+                                    'schema' => [
+                                        '$ref' => '#/components/schemas/JwtRegisterRequest',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'responses' => [
+                            '201' => [
+                                'description' => 'Usuario registrado exitosamente',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/JwtTokenResponse',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            '422' => [
+                                'description' => 'Errores de validación de formulario',
+                            ],
+                        ],
+                    ],
+                ],
+                '/api/auth/me' => [
+                    'get' => [
+                        'tags' => ['Autenticación JWT'],
+                        'summary' => 'Consultar perfil del usuario autenticado con JWT',
+                        'description' => 'Retorna los datos del usuario correspondiente al token Bearer JWT enviado.',
+                        'security' => [
+                            ['bearerAuth' => []],
+                        ],
+                        'responses' => [
+                            '200' => [
+                                'description' => 'Perfil del usuario autenticado',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/User',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            '401' => [
+                                'description' => 'Token JWT ausente o inválido',
+                            ],
+                        ],
+                    ],
+                ],
+                '/api/auth/refresh' => [
+                    'post' => [
+                        'tags' => ['Autenticación JWT'],
+                        'summary' => 'Renovar token JWT',
+                        'description' => 'Genera un nuevo token JWT a partir del token actual enviado en la cabecera Authorization.',
+                        'security' => [
+                            ['bearerAuth' => []],
+                        ],
+                        'responses' => [
+                            '200' => [
+                                'description' => 'Token JWT renovado exitosamente',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/JwtTokenResponse',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            '401' => [
+                                'description' => 'Token no renovable o expirado',
+                            ],
+                        ],
+                    ],
+                ],
+                '/api/auth/logout' => [
+                    'post' => [
+                        'tags' => ['Autenticación JWT'],
+                        'summary' => 'Cerrar sesión y revocar token JWT',
+                        'description' => 'Invalida el token JWT actual incluyéndolo en la lista negra (blacklist) para impedir su reutilización.',
+                        'security' => [
+                            ['bearerAuth' => []],
+                        ],
+                        'responses' => [
+                            '200' => [
+                                'description' => 'Sesión revocada exitosamente',
+                            ],
+                            '401' => [
+                                'description' => 'Token inválido',
+                            ],
+                        ],
+                    ],
+                ],
                 '/api/user' => [
                     'get' => [
-                        'tags' => ['Autenticación y Usuario (Sanctum)'],
-                        'summary' => 'Obtener perfil del usuario autenticado',
-                        'description' => 'Retorna la información básica del usuario vinculado al token Bearer emitido por Laravel Sanctum.',
+                        'tags' => ['Autenticación JWT'],
+                        'summary' => 'Obtener perfil del usuario autenticado vía JWT',
+                        'description' => 'Retorna la información básica del usuario vinculado al token Bearer JWT (`auth:api`).',
                         'security' => [
                             ['bearerAuth' => []],
                         ],
@@ -177,8 +315,8 @@ class SwaggerDocController extends Controller
                     'bearerAuth' => [
                         'type' => 'http',
                         'scheme' => 'bearer',
-                        'bearerFormat' => 'Sanctum Token',
-                        'description' => 'Token personal generado por Laravel Sanctum en la cabecera Authorization: Bearer {token}.',
+                        'bearerFormat' => 'JWT',
+                        'description' => 'Token de seguridad JWT transmitido en la cabecera Authorization: Bearer {token}.',
                     ],
                     'cookieAuth' => [
                         'type' => 'apiKey',
@@ -188,6 +326,38 @@ class SwaggerDocController extends Controller
                     ],
                 ],
                 'schemas' => [
+                    'JwtLoginRequest' => [
+                        'type' => 'object',
+                        'required' => ['email', 'password'],
+                        'properties' => [
+                            'email' => ['type' => 'string', 'format' => 'email', 'example' => 'cliente@gracitas.com'],
+                            'password' => ['type' => 'string', 'format' => 'password', 'example' => 'cliente123'],
+                        ],
+                    ],
+                    'JwtRegisterRequest' => [
+                        'type' => 'object',
+                        'required' => ['name', 'email', 'password', 'password_confirmation'],
+                        'properties' => [
+                            'name' => ['type' => 'string', 'example' => 'Carlos Mendoza Huamaní'],
+                            'email' => ['type' => 'string', 'format' => 'email', 'example' => 'carlos.mendoza@gmail.com'],
+                            'password' => ['type' => 'string', 'format' => 'password', 'minLength' => 6, 'example' => 'segura123'],
+                            'password_confirmation' => ['type' => 'string', 'format' => 'password', 'example' => 'segura123'],
+                            'telefono' => ['type' => 'string', 'example' => '987654321'],
+                            'rol' => ['type' => 'string', 'enum' => ['cliente', 'propietario'], 'default' => 'cliente', 'example' => 'cliente'],
+                        ],
+                    ],
+                    'JwtTokenResponse' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'success' => ['type' => 'boolean', 'example' => true],
+                            'access_token' => ['type' => 'string', 'example' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'],
+                            'token_type' => ['type' => 'string', 'example' => 'bearer'],
+                            'expires_in' => ['type' => 'integer', 'example' => 3600],
+                            'user' => [
+                                '$ref' => '#/components/schemas/User',
+                            ],
+                        ],
+                    ],
                     'SlotDisponibilidad' => [
                         'type' => 'object',
                         'properties' => [

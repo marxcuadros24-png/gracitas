@@ -10,7 +10,7 @@
                     <span class="brand-tagline">{{ __('messages.demo_banner') }}</span>
                 </div>
             </div>
-            <h1 class="auth-title">{{ __('messages.auth.login_title') }}</h1>
+            <h1 class="auth-title">Acceso al Sistema</h1>
             <p class="auth-subtitle">{{ __('messages.auth.already_registered') }} {{ __('messages.home.hero_subtitle') }}</p>
         </div>
 
@@ -48,7 +48,7 @@
             <!-- Campo Correo Electrónico -->
             <div class="form-group-formal">
                 <label for="email" class="form-label-formal">
-                    {{ __('messages.auth.email') }} <span class="req">*</span>
+                    Correo Electrónico Institucional o Personal <span class="req">*</span>
                 </label>
                 <div class="input-with-icon">
                     <span class="input-icon">
@@ -75,7 +75,7 @@
             <div class="form-group-formal">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
                     <label for="password" class="form-label-formal" style="margin-bottom: 0;">
-                        {{ __('messages.auth.password') }} <span class="req">*</span>
+                        Contraseña de Seguridad <span class="req">*</span>
                     </label>
                     <a href="{{ route('password.request') }}" class="link-forgot-pass">
                         {{ __('messages.auth.forgot_password') }}
