@@ -20,7 +20,7 @@
 
 ---
 
-## 📋 Tabla de Contenidos
+##  Tabla de Contenidos
 
 1. [Descripción General](#-descripción-general)
 2. [Características Principales](#-características-principales)
