@@ -44,4 +44,3 @@ class DisponibilidadCanchaActualizada implements ShouldBroadcastNow
         return 'disponibilidad.actualizada';
     }
 }
-

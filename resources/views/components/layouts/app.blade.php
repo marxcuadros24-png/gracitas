@@ -1,11 +1,11 @@
 @props(['title' => null])
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ? $title . ' | ' : '' }}GraCitas - Reserva de Canchas de Gras Sintético | Coracora, Ayacucho</title>
+    <title>{{ $title ? $title . ' | ' : '' }}GraCitas - {{ __('messages.tagline') }}</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,10 +21,10 @@
     <!-- Barra de referencia rápida de cuentas para evaluación -->
     <div class="demo-bar">
         <div>
-            <span><x-icon name="ball" /> <strong>GraCitas Coracora</strong> — Sistema Integral de Alquiler de Canchas Sintéticas</span>
+            <span><x-icon name="ball" /> <strong>GraCitas Coracora</strong> — {{ __('messages.demo_banner') }}</span>
         </div>
         <div class="demo-badges">
-            <span>Cuentas de prueba:</span>
+            <span>{{ __('messages.demo_test_accounts') }}</span>
             <span class="demo-badge">Admin: admin@gracitas.com / admin123</span>
             <span class="demo-badge">Propietario: propietario@gracitas.com / propietario123</span>
             <span class="demo-badge">Cliente: cliente@gracitas.com / cliente123</span>
@@ -47,40 +47,40 @@
                 @if(!auth()->user()->hasVerifiedEmail())
                     <li>
                         <a href="{{ route('verification.notice') }}" class="nav-link active" style="color: #d97706; background: #fffbeb;">
-                            <x-icon name="mail" size="16" /> Verificación Pendiente
+                            <x-icon name="mail" size="16" /> {{ __('messages.pending_verification') }}
                         </a>
                     </li>
                     <li style="display: flex; align-items: center; gap: 10px; margin-left: 10px;">
                         <span class="badge" style="background: #fef3c7; color: #92400e; border: 1px solid #fde68a;">
-                            {{ ucfirst(auth()->user()->rol) }} (No Verificado)
+                            {{ ucfirst(auth()->user()->rol) }} ({{ __('messages.unverified_badge') }})
                         </span>
                         <span style="color: #0f172a; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
                             <x-icon name="user" /> {{ auth()->user()->name }}
                         </span>
                         <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                             @csrf
-                            <button type="submit" class="btn btn-outline btn-sm" title="Cerrar Sesión">
-                                Salir
+                            <button type="submit" class="btn btn-outline btn-sm" title="{{ __('messages.nav.logout') }}">
+                                {{ __('messages.nav.logout') }}
                             </button>
                         </form>
                     </li>
                 @else
-                    <li><a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Explorar Canchas</a></li>
+                    <li><a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">{{ __('messages.nav.explore') }}</a></li>
 
                     @if(auth()->user()->isAdmin())
-                        <li><a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard Admin</a></li>
-                        <li><a href="{{ route('admin.usuarios.index') }}" class="nav-link {{ request()->routeIs('admin.usuarios.*') ? 'active' : '' }}">Usuarios</a></li>
-                        <li><a href="{{ route('admin.supervision.establecimientos') }}" class="nav-link {{ request()->routeIs('admin.supervision.*') ? 'active' : '' }}">Supervisión</a></li>
-                        <li><a href="{{ route('admin.reportes.index') }}" class="nav-link {{ request()->routeIs('admin.reportes.*') ? 'active' : '' }}">Reportes Globales</a></li>
+                        <li><a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">{{ __('messages.nav.admin_dashboard') }}</a></li>
+                        <li><a href="{{ route('admin.usuarios.index') }}" class="nav-link {{ request()->routeIs('admin.usuarios.*') ? 'active' : '' }}">{{ __('messages.nav.admin_users') }}</a></li>
+                        <li><a href="{{ route('admin.supervision.establecimientos') }}" class="nav-link {{ request()->routeIs('admin.supervision.*') ? 'active' : '' }}">{{ __('messages.nav.admin_supervision') }}</a></li>
+                        <li><a href="{{ route('admin.reportes.index') }}" class="nav-link {{ request()->routeIs('admin.reportes.*') ? 'active' : '' }}">{{ __('messages.nav.admin_reports') }}</a></li>
                     @elseif(auth()->user()->isPropietario())
-                        <li><a href="{{ route('propietario.dashboard') }}" class="nav-link {{ request()->routeIs('propietario.dashboard') ? 'active' : '' }}">Mi Dashboard</a></li>
-                        <li><a href="{{ route('propietario.establecimientos.index') }}" class="nav-link {{ request()->routeIs('propietario.establecimientos.*') ? 'active' : '' }}">Mi Local</a></li>
-                        <li><a href="{{ route('propietario.canchas.index') }}" class="nav-link {{ request()->routeIs('propietario.canchas.*') || request()->routeIs('propietario.horarios.*') ? 'active' : '' }}">Canchas</a></li>
-                        <li><a href="{{ route('propietario.reservas.index') }}" class="nav-link {{ request()->routeIs('propietario.reservas.*') ? 'active' : '' }}">Reservas</a></li>
-                        <li><a href="{{ route('propietario.pagos.index') }}" class="nav-link {{ request()->routeIs('propietario.pagos.*') ? 'active' : '' }}">Pagos Presenciales</a></li>
-                        <li><a href="{{ route('propietario.reportes.index') }}" class="nav-link {{ request()->routeIs('propietario.reportes.*') ? 'active' : '' }}">Reportes</a></li>
+                        <li><a href="{{ route('propietario.dashboard') }}" class="nav-link {{ request()->routeIs('propietario.dashboard') ? 'active' : '' }}">{{ __('messages.nav.owner_dashboard') }}</a></li>
+                        <li><a href="{{ route('propietario.establecimientos.index') }}" class="nav-link {{ request()->routeIs('propietario.establecimientos.*') ? 'active' : '' }}">{{ __('messages.nav.owner_facility') }}</a></li>
+                        <li><a href="{{ route('propietario.canchas.index') }}" class="nav-link {{ request()->routeIs('propietario.canchas.*') || request()->routeIs('propietario.horarios.*') ? 'active' : '' }}">{{ __('messages.nav.owner_pitches') }}</a></li>
+                        <li><a href="{{ route('propietario.reservas.index') }}" class="nav-link {{ request()->routeIs('propietario.reservas.*') ? 'active' : '' }}">{{ __('messages.nav.owner_reservations') }}</a></li>
+                        <li><a href="{{ route('propietario.pagos.index') }}" class="nav-link {{ request()->routeIs('propietario.pagos.*') ? 'active' : '' }}">{{ __('messages.nav.owner_payments') }}</a></li>
+                        <li><a href="{{ route('propietario.reportes.index') }}" class="nav-link {{ request()->routeIs('propietario.reportes.*') ? 'active' : '' }}">{{ __('messages.nav.owner_reports') }}</a></li>
                     @else
-                        <li><a href="{{ route('cliente.reservas') }}" class="nav-link {{ request()->routeIs('cliente.reservas') ? 'active' : '' }}">Mis Reservas</a></li>
+                        <li><a href="{{ route('cliente.reservas') }}" class="nav-link {{ request()->routeIs('cliente.reservas') ? 'active' : '' }}">{{ __('messages.nav.my_reservations') }}</a></li>
                     @endif
 
                     <li style="display: flex; align-items: center; gap: 10px; margin-left: 10px;">
@@ -92,17 +92,32 @@
                         </a>
                         <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                             @csrf
-                            <button type="submit" class="btn btn-outline btn-sm" title="Cerrar Sesión">
-                                Salir
+                            <button type="submit" class="btn btn-outline btn-sm" title="{{ __('messages.nav.logout') }}">
+                                {{ __('messages.nav.logout') }}
                             </button>
                         </form>
                     </li>
                 @endif
             @else
-                <li><a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Explorar Canchas</a></li>
-                <li><a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">Iniciar Sesión</a></li>
-                <li><a href="{{ route('register') }}" class="btn btn-primary btn-sm">Registrarse</a></li>
+                <li><a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">{{ __('messages.nav.explore') }}</a></li>
+                <li><a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">{{ __('messages.nav.login') }}</a></li>
+                <li><a href="{{ route('register') }}" class="btn btn-primary btn-sm">{{ __('messages.nav.register') }}</a></li>
             @endauth
+
+            <!-- Selector de Idioma (ES / EN / FR) -->
+            <li class="nav-lang-item" style="display: flex; align-items: center; margin-left: 10px;">
+                <div class="lang-switch-group" role="group" aria-label="{{ __('messages.nav.language') }}" style="display: inline-flex; align-items: center; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 9999px; padding: 2px 3px; gap: 2px;">
+                    <a href="{{ route('locale.switch', 'es') }}" class="lang-pill {{ app()->getLocale() === 'es' ? 'active' : '' }}" title="Español" style="padding: 4px 8px; border-radius: 9999px; text-decoration: none; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 3px; transition: all 0.2s ease; {{ app()->getLocale() === 'es' ? 'background: #047857; color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.15);' : 'color: #475569;' }}">
+                        <span>🇪🇸</span><span>ES</span>
+                    </a>
+                    <a href="{{ route('locale.switch', 'en') }}" class="lang-pill {{ app()->getLocale() === 'en' ? 'active' : '' }}" title="English" style="padding: 4px 8px; border-radius: 9999px; text-decoration: none; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 3px; transition: all 0.2s ease; {{ app()->getLocale() === 'en' ? 'background: #047857; color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.15);' : 'color: #475569;' }}">
+                        <span>🇬🇧</span><span>EN</span>
+                    </a>
+                    <a href="{{ route('locale.switch', 'fr') }}" class="lang-pill {{ app()->getLocale() === 'fr' ? 'active' : '' }}" title="Français" style="padding: 4px 8px; border-radius: 9999px; text-decoration: none; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 3px; transition: all 0.2s ease; {{ app()->getLocale() === 'fr' ? 'background: #047857; color: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.15);' : 'color: #475569;' }}">
+                        <span>🇫🇷</span><span>FR</span>
+                    </a>
+                </div>
+            </li>
         </ul>
     </nav>
 
@@ -111,8 +126,16 @@
             <div style="background: #fffbeb; border-bottom: 1px solid #fde68a; padding: 10px 24px; font-size: 0.875rem; color: #92400e; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <x-icon name="warning" size="16" style="color: #d97706;" />
-                    <span>Tu dirección de correo (<strong>{{ auth()->user()->email }}</strong>) aún no ha sido verificada.</span>
+                    <span>{{ __('messages.verification_alert', ['email' => auth()->user()->email]) }}</span>
                 </div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <a href="{{ route('verification.notice') }}" class="btn btn-outline btn-sm" style="padding: 4px 12px; font-size: 0.8rem; background: white; border-color: #d97706; color: #92400e;">
+                        <x-icon name="mail" size="13" /> {{ __('messages.verify_now') }}
+                    </a>
+                </div>
+            </div>
+        @endif
+    @endauth
                 <div style="display: flex; gap: 10px; align-items: center;">
                     <a href="{{ route('verification.notice') }}" class="btn btn-outline btn-sm" style="padding: 4px 12px; font-size: 0.8rem; background: white; border-color: #d97706; color: #92400e;">
                         <x-icon name="mail" size="13" /> Verificar ahora
@@ -168,29 +191,29 @@
                     <h3 style="color: white; font-size: 1.4rem;">GraCitas</h3>
                 </div>
                 <p style="font-size: 0.9rem; line-height: 1.6;">
-                    Sistema web especializado para la consulta, reserva y gestión de canchas de fútbol de gras sintético en <strong>Coracora, Ayacucho</strong>.
+                    {{ __('messages.footer.description') }}
                 </p>
             </div>
             <div>
-                <h4 style="color: white; margin-bottom: 14px;">Accesos Rápidos</h4>
+                <h4 style="color: white; margin-bottom: 14px;">{{ __('messages.footer.quick_links') }}</h4>
                 <ul style="list-style: none; font-size: 0.9rem; line-height: 2;">
-                    <li><a href="{{ route('home') }}" style="color: #cbd5e1;">Explorar Establecimientos</a></li>
-                    <li><a href="{{ route('login') }}" style="color: #cbd5e1;">Portal de Propietarios</a></li>
-                    <li><a href="{{ route('login') }}" style="color: #cbd5e1;">Iniciar Sesión</a></li>
-                    <li><a href="{{ route('register') }}" style="color: #cbd5e1;">Crear Cuenta de Cliente</a></li>
+                    <li><a href="{{ route('home') }}" style="color: #cbd5e1;">{{ __('messages.footer.explore_facilities') }}</a></li>
+                    <li><a href="{{ route('login') }}" style="color: #cbd5e1;">{{ __('messages.footer.owner_portal') }}</a></li>
+                    <li><a href="{{ route('login') }}" style="color: #cbd5e1;">{{ __('messages.nav.login') }}</a></li>
+                    <li><a href="{{ route('register') }}" style="color: #cbd5e1;">{{ __('messages.footer.create_client_account') }}</a></li>
                 </ul>
             </div>
             <div>
-                <h4 style="color: white; margin-bottom: 14px;">Ubicación & Contacto</h4>
+                <h4 style="color: white; margin-bottom: 14px;">{{ __('messages.footer.location_title') }}</h4>
                 <p style="font-size: 0.9rem; line-height: 1.8; color: #cbd5e1;">
-                    <x-icon name="map-pin" size="14" /> Coracora, Provincia de Parinacochas, Ayacucho, Perú.<br>
-                    <x-icon name="ball" size="14" /> Canchas reglamentarias de gras sintético (F5, F7, F8).<br>
-                    <x-icon name="dollar" size="14" /> Pagos presenciales al momento de jugar (Efectivo / Yape / Plin).
+                    <x-icon name="map-pin" size="14" /> {{ __('messages.footer.location_address') }}<br>
+                    <x-icon name="ball" size="14" /> {{ __('messages.footer.location_pitches') }}<br>
+                    <x-icon name="dollar" size="14" /> {{ __('messages.footer.location_payments') }}
                 </p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} GraCitas — Todos los derechos reservados. Desarrollado con PHP, Laravel y MySQL.</p>
+            <p>&copy; {{ date('Y') }} GraCitas — {{ __('messages.footer.rights_reserved') }}</p>
         </div>
     </footer>
 

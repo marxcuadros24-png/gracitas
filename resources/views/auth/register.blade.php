@@ -1,4 +1,4 @@
-<x-layouts.app title="Registro Oficial de Usuario - GraCitas">
+<x-layouts.app :title="__('messages.auth.register_title') . ' - GraCitas'">
 <div class="auth-page-wrapper">
     <div class="auth-card-container register-card">
         <!-- Encabezado Institucional -->
@@ -7,10 +7,10 @@
                 <img src="{{ asset('images/logo.svg') }}" alt="GraCitas Logo" class="auth-brand-logo">
                 <div class="auth-brand-text">
                     <span class="brand-title">Gra<span>Citas</span></span>
-                    <span class="brand-tagline">Sistema de Gestión de Canchas Sintéticas</span>
+                    <span class="brand-tagline">{{ __('messages.demo_banner') }}</span>
                 </div>
             </div>
-            <h1 class="auth-title">Registro Oficial de Cuenta</h1>
+            <h1 class="auth-title">{{ __('messages.auth.register_title') }}</h1>
             <p class="auth-subtitle">Complete el formulario con información verídica. Por seguridad, su dirección de correo electrónico será verificada antes del primer acceso.</p>
         </div>
 
@@ -60,7 +60,7 @@
             <!-- Nombres Completos -->
             <div class="form-group-formal">
                 <label for="name" class="form-label-formal">
-                    Nombres y Apellidos Completos <span class="req">*</span>
+                    {{ __('messages.auth.name') }} <span class="req">*</span>
                 </label>
                 <div class="input-with-icon">
                     <span class="input-icon">
@@ -85,7 +85,7 @@
             <!-- Correo Electrónico Verificable -->
             <div class="form-group-formal">
                 <label for="email" class="form-label-formal">
-                    Correo Electrónico Oficial <span class="req">*</span>
+                    {{ __('messages.auth.email') }} <span class="req">*</span>
                 </label>
                 <div class="input-with-icon">
                     <span class="input-icon">
@@ -113,7 +113,7 @@
             <!-- Teléfono Celular -->
             <div class="form-group-formal">
                 <label for="telefono" class="form-label-formal">
-                    Número de Celular / WhatsApp <span class="optional">(Opcional)</span>
+                    {{ __('messages.auth.phone') }} <span class="optional">(Opcional)</span>
                 </label>
                 <div class="input-with-icon">
                     <span class="input-icon">
@@ -138,7 +138,7 @@
             <div class="password-grid-row">
                 <div class="form-group-formal" style="margin-bottom: 0;">
                     <label for="password" class="form-label-formal">
-                        Contraseña <span class="req">*</span>
+                        {{ __('messages.auth.password') }} <span class="req">*</span>
                     </label>
                     <div class="input-with-icon">
                         <span class="input-icon">
@@ -164,7 +164,7 @@
 
                 <div class="form-group-formal" style="margin-bottom: 0;">
                     <label for="password_confirmation" class="form-label-formal">
-                        Confirmar Contraseña <span class="req">*</span>
+                        {{ __('messages.auth.confirm_password') }} <span class="req">*</span>
                     </label>
                     <div class="input-with-icon">
                         <span class="input-icon">
@@ -194,7 +194,7 @@
 
             <!-- Botón de Envío -->
             <button type="submit" class="btn-submit-formal" style="margin-top: 10px;">
-                <span>Crear Cuenta y Solicitar Verificación</span>
+                <span>{{ __('messages.nav.register') }}</span>
                 <x-icon name="arrow-right" size="18" />
             </button>
         </form>
@@ -202,8 +202,8 @@
         <!-- Pie de Página -->
         <div class="auth-security-footer">
             <div class="auth-switch-link">
-                ¿Ya dispone de una cuenta registrada? 
-                <a href="{{ route('login') }}">Inicie sesión aquí</a>
+                {{ __('messages.auth.already_registered') }} 
+                <a href="{{ route('login') }}">{{ __('messages.nav.login') }}</a>
             </div>
         </div>
     </div>
