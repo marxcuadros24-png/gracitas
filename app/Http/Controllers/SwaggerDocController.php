@@ -29,11 +29,17 @@ class SwaggerDocController extends Controller
             'openapi' => '3.0.3',
             'info' => [
                 'title' => 'GraCitas API — Gestión y Reserva de Canchas de Gras Sintético',
-                'version' => '2.2.0',
-                'description' => "Documentación oficial de los servicios JSON REST, autenticación JWT y eventos en tiempo real (WebSockets vía Laravel Reverb) de la plataforma GraCitas.\n\n"
+                'version' => '2.3.0',
+                'description' => "Documentación oficial de los servicios JSON REST, autenticación JWT, limitación de tasa (Rate Limiting) y eventos en tiempo real (WebSockets vía Laravel Reverb) de la plataforma GraCitas.\n\n"
                     ."### Seguridad y Autenticación JWT\n"
                     ."- Todos los endpoints bajo `/api/auth/*` y `/api/user` utilizan **JSON Web Tokens (JWT)** con algoritmo HS256 y firma criptográfica.\n"
                     ."- Envíe el token en la cabecera HTTP: `Authorization: Bearer {access_token}`.\n\n"
+                    ."### Protección y Rate Limiting\n"
+                    ."- La API implementa limitadores de tasa por ventana deslizante mediante middleware `throttle`.\n"
+                    ."- **Rutas generales (`api`)**: 60 peticiones/min por usuario o IP.\n"
+                    ."- **Rutas de autenticación (`api.auth`)**: 5 intentos/min por credencial/IP (`/api/auth/login`, `/api/auth/register`).\n"
+                    ."- **Consulta de disponibilidad (`disponibilidad`)**: 60 peticiones/min.\n"
+                    ."- Al exceder el umbral, el servidor responde con estado HTTP **429 Too Many Requests**, cabecera `Retry-After` (segundos de espera) y payload JSON estructurado.\n\n"
                     ."### Canales WebSocket (Laravel Reverb — Puerto 8080)\n"
                     ."- **Canal Público `cancha.{canchaId}`** → Evento `.disponibilidad.actualizada`: notifica altas, cancelaciones o bloqueos horarios para refrescar los turnos en vivo.\n"
                     .'- **Canal Privado `private-establecimiento.{establecimientoId}`** → Evento `.reserva.notificada`: alerta en vivo al propietario autenticado sobre nuevas reservas o cancelaciones.',
@@ -111,6 +117,16 @@ class SwaggerDocController extends Controller
                                     ],
                                 ],
                             ],
+                            '429' => [
+                                'description' => 'Límite de tasa excedido (Rate limit de 60 peticiones/min alcanzado)',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/RateLimitErrorResponse',
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -146,6 +162,16 @@ class SwaggerDocController extends Controller
                             '403' => [
                                 'description' => 'Cuenta inactiva',
                             ],
+                            '429' => [
+                                'description' => 'Demasiados intentos de autenticación (Rate limit de 5 intentos/min alcanzado)',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/RateLimitErrorResponse',
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -178,6 +204,16 @@ class SwaggerDocController extends Controller
                             '422' => [
                                 'description' => 'Errores de validación de formulario',
                             ],
+                            '429' => [
+                                'description' => 'Demasiados intentos de registro (Rate limit de 5 peticiones/min alcanzado)',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/RateLimitErrorResponse',
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -202,6 +238,16 @@ class SwaggerDocController extends Controller
                             ],
                             '401' => [
                                 'description' => 'Token JWT ausente o inválido',
+                            ],
+                            '429' => [
+                                'description' => 'Límite de tasa excedido en la API',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/RateLimitErrorResponse',
+                                        ],
+                                    ],
+                                ],
                             ],
                         ],
                     ],
@@ -228,6 +274,16 @@ class SwaggerDocController extends Controller
                             '401' => [
                                 'description' => 'Token no renovable o expirado',
                             ],
+                            '429' => [
+                                'description' => 'Límite de tasa excedido en la API',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/RateLimitErrorResponse',
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -245,6 +301,16 @@ class SwaggerDocController extends Controller
                             ],
                             '401' => [
                                 'description' => 'Token inválido',
+                            ],
+                            '429' => [
+                                'description' => 'Límite de tasa excedido en la API',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/RateLimitErrorResponse',
+                                        ],
+                                    ],
+                                ],
                             ],
                         ],
                     ],
@@ -270,6 +336,16 @@ class SwaggerDocController extends Controller
                             ],
                             '401' => [
                                 'description' => 'No autenticado (token inválido o ausente)',
+                            ],
+                            '429' => [
+                                'description' => 'Límite de tasa excedido en la API',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            '$ref' => '#/components/schemas/RateLimitErrorResponse',
+                                        ],
+                                    ],
+                                ],
                             ],
                         ],
                     ],
@@ -422,6 +498,14 @@ class SwaggerDocController extends Controller
                                     'items' => ['type' => 'string'],
                                 ],
                             ],
+                        ],
+                    ],
+                    'RateLimitErrorResponse' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'success' => ['type' => 'boolean', 'example' => false],
+                            'message' => ['type' => 'string', 'example' => 'Demasiadas solicitudes a la API. Por favor espere antes de reintentar.'],
+                            'retry_after_seconds' => ['type' => 'integer', 'example' => 60],
                         ],
                     ],
                 ],
