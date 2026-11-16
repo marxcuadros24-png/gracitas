@@ -10,7 +10,7 @@
                     <span class="brand-tagline">{{ __('messages.demo_banner') }}</span>
                 </div>
             </div>
-            <h1 class="auth-title">{{ __('messages.auth.register_title') }}</h1>
+            <h1 class="auth-title">Registro Oficial de Cuenta</h1>
             <p class="auth-subtitle">Complete el formulario con información verídica. Por seguridad, su dirección de correo electrónico será verificada antes del primer acceso.</p>
         </div>
 
