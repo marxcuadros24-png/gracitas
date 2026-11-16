@@ -48,4 +48,3 @@ class ReservaPropietarioNotificada implements ShouldBroadcastNow
         return 'reserva.notificada';
     }
 }
-
