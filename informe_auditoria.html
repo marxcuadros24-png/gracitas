@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Informe de Auditoría de Seguridad — I.S.T.Púb César Augusto Guardia Mayorga</title>
+<style>
+  @page {
+    size: A4;
+    margin: 16mm 14mm 16mm 14mm;
+    @bottom-right {
+      content: "Página " counter(page);
+      font-size: 8pt;
+      color: #64748b;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.5;
+    font-size: 9.5pt;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* ================= CARÁTULA ACADÉMICA INSTITUCIONAL ================= */
+  .academic-cover {
+    height: 98vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    border: 3px double #087f68;
+    border-radius: 12px;
+    padding: 35px 30px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  }
+
+  .academic-header {
+    width: 100%;
+  }
+
+  .inst-sub {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .inst-title {
+    font-size: 16pt;
+    font-weight: 900;
+    color: #0f172a;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .inst-name {
+    font-size: 19pt;
+    font-weight: 900;
+    color: #087f68;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    border-bottom: 2px solid #087f68;
+    display: inline-block;
+    padding-bottom: 6px;
+  }
+
+  .inst-location {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .academic-logo-box {
+    margin: 15px 0;
+  }
+
+  .academic-body {
+    width: 100%;
+  }
+
+  .audit-type-pill {
+    display: inline-block;
+    background-color: #087f68;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 9pt;
+    padding: 5px 16px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .academic-report-title {
+    font-size: 17pt;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1.3;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+  }
+
+  .academic-report-subtitle {
+    font-size: 11pt;
+    color: #334155;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 auto 18px auto;
+    max-width: 90%;
+  }
+
+  .academic-info-card {
+    width: 90%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    overflow: hidden;
+    text-align: left;
+  }
+
+  .academic-info-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+
+  .academic-info-card td {
+    padding: 8px 14px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .academic-info-card tr:last-child td {
+    border-bottom: none;
+  }
+
+  .info-tag {
+    font-weight: 800;
+    color: #0f172a;
+    width: 32%;
+    text-transform: uppercase;
+    font-size: 8pt;
+    letter-spacing: 0.5px;
+    background-color: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+  }
+
+  .info-val {
+    color: #1e293b;
+    font-weight: 600;
+  }
+
+  .academic-footer {
+    width: 100%;
+    padding-top: 15px;
+    border-top: 1px solid #cbd5e1;
+  }
+
+  .city-year {
+    font-size: 10pt;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* ================= HOJAS DE CONTENIDO ================= */
+  .badge-confidential {
+    display: inline-block;
+    background-color: #fee2e2;
+    color: #b91c1c;
+    font-weight: 700;
+    font-size: 8pt;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border: 1px solid #fca5a5;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #087f68;
+    padding-bottom: 6px;
+    margin-top: 25px;
+    margin-bottom: 14px;
+  }
+
+  .section-number {
+    background-color: #087f68;
+    color: white;
+    font-weight: 800;
+    font-size: 9pt;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+
+  .section-title {
+    font-size: 13.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  /* Metric Cards */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .metric-card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    text-align: center;
+  }
+
+  .metric-card.high { border-top: 4px solid #f97316; }
+  .metric-card.medium { border-top: 4px solid #eab308; }
+  .metric-card.clean { border-top: 4px solid #10b981; }
+
+  .metric-num {
+    font-size: 20pt;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #0f172a;
+  }
+
+  .metric-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-top: 4px;
+  }
+
+  /* Severity Badges */
+  .badge-sev {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .sev-high {
+    background-color: #ffedd5;
+    color: #c2410c;
+    border: 1px solid #fed7aa;
+  }
+  .sev-medium {
+    background-color: #fef9c3;
+    color: #a16207;
+    border: 1px solid #fde047;
+  }
+  .sev-lead {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+  }
+
+  /* Tables */
+  table.audit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 8.5pt;
+  }
+
+  table.audit-table th {
+    background-color: #0f172a;
+    color: #ffffff;
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: 700;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  table.audit-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+
+  table.audit-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+
+  /* Finding Detailed Card */
+  .finding-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    page-break-inside: avoid;
+  }
+
+  .finding-header {
+    background-color: #f8fafc;
+    padding: 9px 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .finding-id {
+    font-family: ui-monospace, monospace;
+    font-size: 8pt;
+    color: #64748b;
+    font-weight: 600;
+  }
+
+  .finding-title {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 2px;
+  }
+
+  .finding-body {
+    padding: 11px 13px;
+  }
+
+  .finding-desc {
+    color: #334155;
+    margin-bottom: 9px;
+    font-size: 9pt;
+  }
+
+  .field-row {
+    margin-bottom: 6px;
+    font-size: 8.5pt;
+  }
+
+  .field-name {
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .field-content {
+    color: #475569;
+  }
+
+  /* Code snippet block */
+  .code-block {
+    background-color: #0f172a;
+    color: #f8fafc;
+    border-radius: 6px;
+    padding: 8px 11px;
+    font-family: ui-monospace, Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 7.6pt;
+    line-height: 1.45;
+    overflow-x: hidden;
+    margin: 6px 0;
+    border-left: 3px solid #087f68;
+    white-space: pre-wrap;
+  }
+
+  .code-bad { border-left-color: #ef4444; }
+  .code-good { border-left-color: #10b981; }
+
+  .callout-box {
+    background-color: #ecfdf5;
+    border-left: 4px solid #087f68;
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    margin: 12px 0;
+    font-size: 8.5pt;
+  }
+
+  .callout-title {
+    font-weight: 700;
+    color: #065f46;
+    margin-bottom: 3px;
+  }
+
+  .sign-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  .sign-box {
+    border-top: 1px solid #94a3b8;
+    padding-top: 10px;
+    text-align: center;
+  }
+
+  .sign-name {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 9.5pt;
+  }
+
+  .sign-role {
+    font-size: 8pt;
+    color: #64748b;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= 1. CARÁTULA ACADÉMICA OFICIAL ================= -->
+<div class="academic-cover">
+  <div class="academic-header">
+    <div class="inst-sub">Ministerio de Educación — Región Ayacucho</div>
+    <div class="inst-title">Instituto de Educación Superior Tecnológico Público</div>
+    <div class="inst-name">"César Augusto Guardia Mayorga"</div>
+    <div class="inst-location">Coracora — Parinacochas — Ayacucho</div>
+  </div>
+
+  <div class="academic-logo-box">
+    <!-- Logotipo Oficial Vectorial de GraCitas -->
+    <svg width="130" height="105" viewBox="0 0 640 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="640" height="520" fill="#ffffff" rx="30"/>
+      <g transform="translate(0,8)" stroke="#087f68" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <rect x="170" y="55" width="300" height="250" rx="34"/>
+        <path d="M170 112 H470"/>
+        <path d="M230 40 V78 M410 40 V78"/>
+        <rect x="205" y="135" width="230" height="140" rx="5" stroke-width="8"/>
+        <path d="M320 135 V275" stroke-width="7"/>
+        <circle cx="320" cy="205" r="25" stroke-width="7"/>
+        <rect x="205" y="173" width="34" height="64" stroke-width="7"/>
+        <rect x="401" y="173" width="34" height="64" stroke-width="7"/>
+      </g>
+      <circle cx="443" cy="278" r="48" fill="#087f68" stroke="#ffffff" stroke-width="7"/>
+      <path d="M420 278 L436 294 L468 259" fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="320" y="415" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="800">
+        <tspan fill="#252a2d">Gra</tspan><tspan fill="#087f68">Citas</tspan>
+      </text>
+      <text x="320" y="455" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#64748b">RESERVA TU CANCHA</text>
+    </svg>
+  </div>
+
+  <div class="academic-body">
+    <div class="audit-type-pill">Auditoría de Seguridad de Código Fuente (White-Box Security Review)</div>
+    <h1 class="academic-report-title">
+      Informe Técnico de Seguridad Informática y Análisis Integral de Vulnerabilidades
+    </h1>
+    <div class="academic-report-subtitle">
+      Evaluación de Superficies de Ataque, Autenticación JWT, Aislamiento Multi-Tenant y Control de Acceso en la Plataforma Web "GraCitas v2.4.0"
+    </div>
+
+    <div class="academic-info-card">
+      <table>
+        <tr>
+          <td class="info-tag">Unidad Didáctica:</td>
+          <td class="info-val"><strong>Seguridad y Auditoría Informática</strong></td>
+        </tr>
+        <tr>
+          <td class="info-tag">Ciclo Académico:</td>
+          <td class="info-val"><strong>VI (Sexto Ciclo)</strong></td>
+        </tr>
+        <tr>
+          <td class="info-tag">Docente:</td>
+          <td class="info-val"><strong>Ing. Alvaro Anselmo Bernaola Aroni</strong></td>
+        </tr>
+        <tr>
+          <td class="info-tag">Alumno:</td>
+          <td class="info-val"><strong>Marx Laurof Cuadros Flores</strong></td>
+        </tr>
+        <tr>
+          <td class="info-tag">Sistema Auditado:</td>
+          <td class="info-val"><strong>GraCitas — Plataforma de Gestión y Reserva de Canchas</strong> (PHP 8.3+ / Laravel 12)</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="academic-footer">
+    <div class="city-year">Coracora — Ayacucho, Perú<br><span style="font-size: 8.5pt; font-weight: 600; color: #475569;">Año Académico 2026</span></div>
+  </div>
+</div>
+
+<!-- ================= 2. RESUMEN EJECUTIVO ================= -->
+<div class="page-break"></div>
+
+<div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #087f68; padding-bottom: 10px; margin-bottom: 18px;">
+  <div>
+    <div style="font-weight: 800; font-size: 13pt; color: #0f172a;">I.S.T.Púb "César Augusto Guardia Mayorga"</div>
+    <div style="font-size: 8.5pt; color: #64748b;">Unidad Didáctica: Seguridad y Auditoría Informática | Ciclo VI</div>
+  </div>
+  <div class="badge-confidential">Informe Técnico Académico</div>
+</div>
+
+<div class="section-header" style="margin-top: 10px;">
+  <span class="section-number">01</span>
+  <h2 class="section-title">Resumen Ejecutivo y Dictamen de Auditoría</h2>
+</div>
+
+<p>
+  El presente informe documenta los resultados de la auditoría de seguridad informática en modalidad <strong>Caja Blanca (White-Box Code Audit)</strong> efectuada sobre la plataforma <strong>GraCitas</strong>, solución web desarrollada para la gestión deportiva y reserva de canchas sintéticas en el distrito de <strong>Coracora (Parinacochas, Ayacucho)</strong>.
+</p>
+
+<div class="metrics-grid">
+  <div class="metric-card high">
+    <div class="metric-num" style="color: #c2410c;">1</div>
+    <div class="metric-label">Severidad Alta</div>
+  </div>
+  <div class="metric-card medium">
+    <div class="metric-num" style="color: #a16207;">4</div>
+    <div class="metric-label">Severidad Media</div>
+  </div>
+  <div class="metric-card clean">
+    <div class="metric-num" style="color: #0369a1;">1</div>
+    <div class="metric-label">Por Validar (Lead)</div>
+  </div>
+  <div class="metric-card clean">
+    <div class="metric-num" style="color: #087f68;">4</div>
+    <div class="metric-label">Controles Sólidos</div>
+  </div>
+</div>
+
+<div class="callout-box">
+  <div class="callout-title">Dictamen del Auditor</div>
+  La aplicación evidencia <strong>buenas prácticas perimetrales</strong> en prevención de ataques de fuerza bruta (Rate Limiting dinámico por IP y credencial), invalidación de sesiones y tokens JWT con lista negra criptográfica. Sin embargo, se identificaron <strong>vulnerabilidades críticas en la lógica de negocio y en el control de acceso multi-inquilino (IDOR)</strong> que comprometen la privacidad de los deportistas y la integridad contable de los complejos deportivos.
+</div>
+
+<div class="section-header">
+  <span class="section-number">02</span>
+  <h2 class="section-title">Matriz Resumen de Hallazgos y Vulnerabilidades</h2>
+</div>
+
+<table class="audit-table">
+  <thead>
+    <tr>
+      <th style="width: 12%;">Severidad</th>
+      <th style="width: 38%;">Vulnerabilidad Identificada</th>
+      <th style="width: 25%;">Límite de Confianza Violado</th>
+      <th style="width: 25%;">Impacto Empresarial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge-sev sev-high">Alta</span></td>
+      <td><strong>Fuga de Comprobantes y PII entre Propietarios (IDOR)</strong><br><span style="font-size: 7.5pt; color: #64748b;"><code>gracitas:idor:reserva-comprobante-authz</code></span></td>
+      <td>Aislamiento entre Propietarios de Canchas</td>
+      <td>Exposición de nombres, teléfonos y correos de clientes a otros locales rivales.</td>
+    </tr>
+    <tr>
+      <td><span class="badge-sev sev-medium">Media</span></td>
+      <td><strong>Exposición de Códigos Privados en API Pública</strong><br><span style="font-size: 7.5pt; color: #64748b;"><code>gracitas:disclosure:public-availability-booking-codes</code></span></td>
+      <td>Anonimato de Reservas Públicas</td>
+      <td>Cualquier visitante puede recolectar identificadores para rastrear reservas.</td>
+    </tr>
+    <tr>
+      <td><span class="badge-sev sev-medium">Media</span></td>
+      <td><strong>Condición de Carrera en Doble Reserva Simultánea</strong><br><span style="font-size: 7.5pt; color: #64748b;"><code>gracitas:race-condition:reservation-double-booking</code></span></td>
+      <td>Exclusividad de Cancha y Turno</td>
+      <td>Colisión de turnos: dos equipos reservan la misma cancha en la misma hora.</td>
+    </tr>
+    <tr>
+      <td><span class="badge-sev sev-medium">Media</span></td>
+      <td><strong>Borrado de Cuenta Purga Historial de Pagos</strong><br><span style="font-size: 7.5pt; color: #64748b;"><code>gracitas:data-lifecycle:account-deletion-purges-payments</code></span></td>
+      <td>Integridad Contable y Auditoría</td>
+      <td>Pérdida de balances históricos e ingresos en los reportes de los dueños.</td>
+    </tr>
+    <tr>
+      <td><span class="badge-sev sev-medium">Media</span></td>
+      <td><strong>Cambio de Email Conserva Estado Verificado</strong><br><span style="font-size: 7.5pt; color: #64748b;"><code>gracitas:auth:profile-email-update-preserves-verification</code></span></td>
+      <td>Verificación de Identidad de Usuario</td>
+      <td>Cuentas verificadas pueden asociar correos ajenos sin confirmarlos.</td>
+    </tr>
+    <tr>
+      <td><span class="badge-sev sev-lead">Lead</span></td>
+      <td><strong>Resolución DNS Síncrona en Validación de Emails</strong><br><span style="font-size: 7.5pt; color: #64748b;"><code>gracitas:dos:checkdnsrr-synchronous-resolution</code></span></td>
+      <td>Disponibilidad de Servidores PHP</td>
+      <td>Riesgo de agotamiento de trabajadores PHP ante dominios no responsivos.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ================= 3. FICHAS TÉCNICAS ================= -->
+<div class="page-break"></div>
+
+<div class="section-header">
+  <span class="section-number">03</span>
+  <h2 class="section-title">Fichas Técnicas de Hallazgos y Remediaciones</h2>
+</div>
+
+<!-- HALLAZGO 1 -->
+<div class="finding-card">
+  <div class="finding-header">
+    <div>
+      <div class="finding-id">ID: gracitas:idor:reserva-comprobante-authz</div>
+      <div class="finding-title">1. Fuga de Comprobantes y Datos Personales entre Propietarios (IDOR)</div>
+    </div>
+    <span class="badge-sev sev-high">Severidad Alta</span>
+  </div>
+  <div class="finding-body">
+    <div class="finding-desc">
+      El controlador de comprobantes (<code>/reserva/comprobante/{codigo}</code>) solo comprueba la propiedad si el usuario autenticado tiene rol <code>cliente</code>. Si un usuario se registra con rol <code>propietario</code>, la condición <code>$user->isCliente()</code> es falsa y el sistema permite descargar o visualizar los comprobantes de <strong>cualquier complejo deportivo de la competencia</strong>.
+    </div>
+
+    <div class="field-row">
+      <span class="field-name">Archivo Afectado:</span> <span class="field-content"><code>app/Http/Controllers/ReservaClienteController.php</code> (Líneas 126–131)</span>
+    </div>
+    <div class="field-row">
+      <span class="field-name">Datos Expuestos:</span> <span class="field-content">Nombres completos de deportistas, números telefónicos, correos electrónicos, importes pagados y método de cobro (Efectivo/Yape/Plin).</span>
+    </div>
+
+    <div style="margin-top: 6px; font-weight: 700; font-size: 8pt; color: #ef4444;">Código Vulnerable:</div>
+    <div class="code-block code-bad">// app/Http/Controllers/ReservaClienteController.php:127
+$user = Auth::user();
+if ($user->isCliente() && $reserva->cliente_id !== $user->id) {
+    abort(403, 'No tienes permiso para ver esta reserva.');
+}
+// ¡Omite verificar si el usuario propietario es dueño de la cancha reservada!</div>
+
+    <div style="margin-top: 6px; font-weight: 700; font-size: 8pt; color: #10b981;">Solución Técnica (Parche Inmediato):</div>
+    <div class="code-block code-good">$user = Auth::user();
+if ($user->isCliente() && $reserva->cliente_id !== $user->id) {
+    abort(403, 'No tienes permiso para ver esta reserva.');
+}
+if ($user->isPropietario() && (int)$reserva->cancha->establecimiento->propietario_id !== (int)$user->id) {
+    abort(403, 'No tienes permiso para ver comprobantes de otros establecimientos deportivos.');
+}</div>
+  </div>
+</div>
+
+<!-- HALLAZGO 2 -->
+<div class="finding-card">
+  <div class="finding-header">
+    <div>
+      <div class="finding-id">ID: gracitas:disclosure:public-availability-booking-codes</div>
+      <div class="finding-title">2. Exposición Pública de Códigos Confidenciales en API de Disponibilidad</div>
+    </div>
+    <span class="badge-sev sev-medium">Severidad Media</span>
+  </div>
+  <div class="finding-body">
+    <div class="finding-desc">
+      El servicio que calcula los turnos libres concatena el código confidencial de reserva (ej. <code>GC-2611-ABCDE</code>) en la descripción devuelta por la API pública <code>/cancha/{id}/disponibilidad</code>. Cualquier visitante no autenticado puede recolectar sistemáticamente los códigos de reserva de los partidos.
+    </div>
+    <div class="field-row">
+      <span class="field-name">Archivo Afectado:</span> <span class="field-content"><code>app/Services/AvailabilityService.php</code> (Línea 84)</span>
+    </div>
+
+    <div style="margin-top: 6px; font-weight: 700; font-size: 8pt; color: #ef4444;">Código Vulnerable:</div>
+    <div class="code-block code-bad">// app/Services/AvailabilityService.php:84
+} elseif ($reservaSolapada) {
+    $disponible = false;
+    $estado = 'reservado';
+    $detalle = 'Reservado ('.$reservaSolapada->codigo.')'; // Expone código confidencial
+}</div>
+
+    <div style="margin-top: 6px; font-weight: 700; font-size: 8pt; color: #10b981;">Solución Técnica:</div>
+    <div class="code-block code-good">} elseif ($reservaSolapada) {
+    $disponible = false;
+    $estado = 'reservado';
+    $detalle = 'Horario reservado'; // Sanitizado sin filtrar códigos internos
+}</div>
+  </div>
+</div>
+
+<!-- ================= 4. CONTINUACIÓN FICHAS TÉCNICAS ================= -->
+<div class="page-break"></div>
+
+<!-- HALLAZGO 3 -->
+<div class="finding-card">
+  <div class="finding-header">
+    <div>
+      <div class="finding-id">ID: gracitas:race-condition:reservation-double-booking</div>
+      <div class="finding-title">3. Condición de Carrera Concurrente (Riesgo de Doble Reserva)</div>
+    </div>
+    <span class="badge-sev sev-medium">Severidad Media</span>
+  </div>
+  <div class="finding-body">
+    <div class="finding-desc">
+      En <code>ReservaClienteController::store</code>, la disponibilidad se verifica con una consulta <code>SELECT</code> sin bloqueo pesimista. Si dos clientes envían la solicitud en el mismo milisegundo por un horario de alta afluencia (ej. viernes noche), ambas transacciones leen cero conflictos y crean dos reservas confirmadas para la misma cancha.
+    </div>
+    <div class="field-row">
+      <span class="field-name">Archivos Afectados:</span> <span class="field-content"><code>app/Http/Controllers/ReservaClienteController.php</code> (Líneas 68–95) y <code>AvailabilityService.php</code></span>
+    </div>
+
+    <div style="margin-top: 6px; font-weight: 700; font-size: 8pt; color: #10b981;">Solución Técnica (Bloqueo Pesimista lockForUpdate):</div>
+    <div class="code-block code-good">return DB::transaction(function () use ($validated) {
+    // Bloqueo pesimista para serializar la asignación del turno en la cancha seleccionada
+    $cancha = Cancha::where('id', $validated['cancha_id'])->lockForUpdate()->firstOrFail();
+    $inicio = Carbon::parse($validated['fecha'].' '.$validated['hora_inicio'], 'America/Lima');
+    $fin = $inicio->copy()->addMinutes((int) $validated['duracion_min']);
+    
+    $verificacion = $this->availabilityService->checkAvailability($cancha, $inicio, $fin);
+    if (! $verificacion['disponible']) {
+        return back()->with('error', $verificacion['mensaje'])->withInput();
+    }
+    // Procede a crear la reserva de forma estrictamente serializada
+});</div>
+  </div>
+</div>
+
+<!-- HALLAZGO 4 -->
+<div class="finding-card">
+  <div class="finding-header">
+    <div>
+      <div class="finding-id">ID: gracitas:data-lifecycle:account-deletion-purges-payments</div>
+      <div class="finding-title">4. Borrado de Cuenta Purga Pagos Históricos y Altera Contabilidad</div>
+    </div>
+    <span class="badge-sev sev-medium">Severidad Media</span>
+  </div>
+  <div class="finding-body">
+    <div class="finding-desc">
+      Al eliminar una cuenta de cliente en <code>/perfil</code>, <code>deleteWithRelations()</code> ejecuta un borrado físico en cascada (<code>Pago::whereIn(...)->delete()</code>). Si el usuario ya jugó partidos en fechas anteriores, los registros de dinero cobrado en ventanilla desaparecen para siempre, descuadrando la contabilidad del propietario.
+    </div>
+    <div class="field-row">
+      <span class="field-name">Archivo Afectado:</span> <span class="field-content"><code>app/Models/User.php</code> (Líneas 158–164)</span>
+    </div>
+
+    <div style="margin-top: 6px; font-weight: 700; font-size: 8pt; color: #10b981;">Solución Técnica (Anonimización en vez de Borrado Físico):</div>
+    <div class="code-block code-good">if ($this->isCliente()) {
+    // Conserva las transacciones de pago históricas y anonimiza la referencia al cliente
+    $this->reservas()->update([
+        'cliente_id' => null,
+        'observaciones' => '[Cuenta de cliente eliminada por solicitud del usuario]',
+    ]);
+}</div>
+  </div>
+</div>
+
+<div class="section-header">
+  <span class="section-number">04</span>
+  <h2 class="section-title">Puntos Fuertes de Seguridad Detectados</h2>
+</div>
+
+<table class="audit-table">
+  <thead>
+    <tr>
+      <th style="width: 30%;">Control Implementado</th>
+      <th style="width: 70%;">Mecanismo Técnico y Efectividad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Rate Limiting Defensivo</strong></td>
+      <td>Configurado en <code>AppServiceProvider.php</code> con límites estrictos: 5 req/min en login/registro, 3 req/min en recuperación de contraseña y 60 req/min en la API. Bloquea eficazmente ataques de fuerza bruta.</td>
+    </tr>
+    <tr>
+      <td><strong>Suspensión Inmediata de Usuarios</strong></td>
+      <td><code>CheckRole.php</code> y la API validan <code>$user->activo</code>. Si un administrador desactiva una cuenta, las sesiones y tokens se invalidan de forma inmediata.</td>
+    </tr>
+    <tr>
+      <td><strong>Tokens JWT Criptográficos</strong></td>
+      <td>Firma HMAC SHA-256 con claims personalizados (rol, activo) y revocación en lista negra (blacklist) al cerrar sesión.</td>
+    </tr>
+    <tr>
+      <td><strong>WebSockets Seguros (Laravel Reverb)</strong></td>
+      <td>Canales privados <code>private-establecimiento.{id}</code> suscritos únicamente si <code>$establecimiento->propietario_id === $user->id</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ================= 5. PLAN DE ACCIÓN Y FIRMAS ================= -->
+<div class="page-break"></div>
+
+<div class="section-header">
+  <span class="section-number">05</span>
+  <h2 class="section-title">Plan de Acción y Cronograma de Remediación</h2>
+</div>
+
+<table class="audit-table">
+  <thead>
+    <tr>
+      <th style="width: 15%;">Plazo</th>
+      <th style="width: 55%;">Acción Técnica Requerida</th>
+      <th style="width: 30%;">Responsable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong style="color: #c2410c;">Fase 1 (24 horas)</strong></td>
+      <td>Corregir la validación multi-tenant en <code>ReservaClienteController::comprobante</code> para aislar datos personales entre complejos deportivos.</td>
+      <td>Equipo de Desarrollo Backend</td>
+    </tr>
+    <tr>
+      <td><strong style="color: #c2410c;">Fase 1 (24 horas)</strong></td>
+      <td>Ocultar los códigos de reserva en la respuesta pública de <code>AvailabilityService::getSlotsForDate</code>.</td>
+      <td>Equipo de Desarrollo Backend</td>
+    </tr>
+    <tr>
+      <td><strong style="color: #a16207;">Fase 2 (48 horas)</strong></td>
+      <td>Implementar bloqueo pesimista (<code>lockForUpdate()</code>) en la transacción de reserva para evitar turnos duplicados concurrentes.</td>
+      <td>Ingeniería de Base de Datos</td>
+    </tr>
+    <tr>
+      <td><strong style="color: #a16207;">Fase 2 (72 horas)</strong></td>
+      <td>Sustituir el borrado físico de pagos en <code>User::deleteWithRelations()</code> por anonimización para proteger la contabilidad de los dueños.</td>
+      <td>Arquitectura de Software</td>
+    </tr>
+    <tr>
+      <td><strong style="color: #0369a1;">Fase 3 (1 semana)</strong></td>
+      <td>Invalidar <code>email_verified_at</code> al actualizar correo en <code>AuthController::updateProfile</code> y verificar caché DNS local para <code>RealEmailDomain</code>.</td>
+      <td>Infraestructura / DevOps</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-header" style="margin-top: 35px;">
+  <span class="section-number">06</span>
+  <h2 class="section-title">Conformidad Académica e Institucional</h2>
+</div>
+
+<p style="font-size: 8.5pt; color: #475569;">
+  El presente informe certifica que el código fuente de <strong>GraCitas v2.4.0</strong> ha sido analizado minuciosamente bajo la metodología de auditoría de ciberseguridad defensiva para la Unidad Didáctica de <strong>Seguridad y Auditoría Informática</strong> del <strong>I.S.T.Púb "César Augusto Guardia Mayorga"</strong> de Coracora. Las soluciones propuestas representan las correcciones técnicas exactas para garantizar la seguridad de la información y la privacidad de los usuarios según la Ley N° 29733 (Ley de Protección de Datos Personales del Perú).
+</p>
+
+<div class="sign-grid">
+  <div class="sign-box">
+    <div class="sign-name">Marx Laurof Cuadros Flores</div>
+    <div class="sign-role">Alumno Auditor — Ciclo VI</div>
+    <div style="font-size: 7.5pt; color: #94a3b8; margin-top: 3px;">I.S.T.Púb "César Augusto Guardia Mayorga"</div>
+  </div>
+  <div class="sign-box">
+    <div class="sign-name">Ing. Alvaro Anselmo Bernaola Aroni</div>
+    <div class="sign-role">Docente de la Unidad Didáctica</div>
+    <div style="font-size: 7.5pt; color: #94a3b8; margin-top: 3px;">Seguridad y Auditoría Informática</div>
+  </div>
+</div>
+
+</body>
+</html>

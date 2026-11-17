@@ -88,11 +88,11 @@ class PropietarioReservaController extends Controller
             'observaciones' => 'nullable|string|max:500',
         ]);
 
-        $cancha = Cancha::findOrFail($validated['cancha_id']);
-        $inicio = Carbon::parse($validated['fecha'].' '.$validated['hora_inicio'], 'America/Lima');
-        $fin = $inicio->copy()->addMinutes((int) $validated['duracion_min']);
+        return DB::transaction(function () use ($validated) {
+            $cancha = Cancha::where('id', $validated['cancha_id'])->lockForUpdate()->firstOrFail();
+            $inicio = Carbon::parse($validated['fecha'].' '.$validated['hora_inicio'], 'America/Lima');
+            $fin = $inicio->copy()->addMinutes((int) $validated['duracion_min']);
 
-        return DB::transaction(function () use ($cancha, $inicio, $fin, $validated) {
             // Validar disponibilidad
             $verificacion = $this->availabilityService->checkAvailability($cancha, $inicio, $fin);
 
