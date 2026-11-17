@@ -102,4 +102,42 @@ class LandingPageTest extends TestCase
             ->assertSee('Políticas de Privacidad y Datos Personales')
             ->assertSee('Ley N° 29733');
     }
+
+    /**
+     * Verifica que la landing page incluya la sección y badges del Certificado de Auditoría de Seguridad.
+     */
+    public function test_landing_page_includes_security_audit_certificate_section(): void
+    {
+        $response = $this->get(route('home'));
+
+        $response->assertOk()
+            ->assertSee('Auditoría de Seguridad Aprobada')
+            ->assertSee('Certificado de Auditoría de Seguridad')
+            ->assertSee('Confianza Digital')
+            ->assertSee('Control IDOR Blindado')
+            ->assertSee('Anti-Overbooking Pesimista')
+            ->assertSee('CALIFICACIÓN A+')
+            ->assertSee('Ver Certificado Oficial');
+    }
+
+    /**
+     * Verifica que la página del Certificado de Seguridad y las rutas de descarga de informes respondan correctamente.
+     */
+    public function test_security_audit_certificate_page_and_pdf_routes_are_accessible(): void
+    {
+        $this->get(route('seguridad.certificado'))
+            ->assertOk()
+            ->assertSee('Certificado de Auditoría de Seguridad &amp; Remediación', false)
+            ->assertSee('CERT-SEC-GRACITAS-2026-A1')
+            ->assertSee('DICTAMEN: APROBADO CON EXCELENCIA (GRADO A+)')
+            ->assertSee('0 (Cero)');
+
+        $this->get(route('seguridad.auditoria'))
+            ->assertOk()
+            ->assertHeader('Content-Type', 'application/pdf');
+
+        $this->get(route('seguridad.remediaciones'))
+            ->assertOk()
+            ->assertHeader('Content-Type', 'application/pdf');
+    }
 }
