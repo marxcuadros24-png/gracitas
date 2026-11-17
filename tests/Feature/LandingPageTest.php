@@ -104,40 +104,28 @@ class LandingPageTest extends TestCase
     }
 
     /**
-     * Verifica que la landing page incluya la sección y badges del Certificado de Auditoría de Seguridad.
+     * Verifica que el pie de página incluya el sello de auditoría corporativo y libro de reclamaciones sin exponer datos sensibles.
      */
-    public function test_landing_page_includes_security_audit_certificate_section(): void
+    public function test_landing_page_includes_audit_seal_and_complaints_book(): void
     {
         $response = $this->get(route('home'));
 
         $response->assertOk()
-            ->assertSee('Auditoría de Seguridad Aprobada')
-            ->assertSee('Certificado de Auditoría de Seguridad')
-            ->assertSee('Confianza Digital')
-            ->assertSee('Control IDOR Blindado')
-            ->assertSee('Anti-Overbooking Pesimista')
-            ->assertSee('CALIFICACIÓN A+')
-            ->assertSee('Ver Certificado Oficial');
+            ->assertSee('Auditados por')
+            ->assertSee('Ernst &amp; Young', false)
+            ->assertSee('Libro de Reclamaciones')
+            ->assertSee('Alianzas')
+            ->assertSee('Estados financieros')
+            ->assertSee('Reportes anuales');
     }
 
     /**
-     * Verifica que la página del Certificado de Seguridad y las rutas de descarga de informes respondan correctamente.
+     * Verifica que no se expongan públicamente rutas de informes de seguridad sensibles a ciberdelincuentes.
      */
-    public function test_security_audit_certificate_page_and_pdf_routes_are_accessible(): void
+    public function test_sensitive_audit_reports_are_not_exposed_via_public_routes(): void
     {
-        $this->get(route('seguridad.certificado'))
-            ->assertOk()
-            ->assertSee('Certificado de Auditoría de Seguridad &amp; Remediación', false)
-            ->assertSee('CERT-SEC-GRACITAS-2026-A1')
-            ->assertSee('DICTAMEN: APROBADO CON EXCELENCIA (GRADO A+)')
-            ->assertSee('0 (Cero)');
-
-        $this->get(route('seguridad.auditoria'))
-            ->assertOk()
-            ->assertHeader('Content-Type', 'application/pdf');
-
-        $this->get(route('seguridad.remediaciones'))
-            ->assertOk()
-            ->assertHeader('Content-Type', 'application/pdf');
+        $this->get('/seguridad/auditoria')->assertNotFound();
+        $this->get('/seguridad/certificado')->assertNotFound();
+        $this->get('/seguridad/remediaciones')->assertNotFound();
     }
 }

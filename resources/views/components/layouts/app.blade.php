@@ -176,32 +176,24 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px;">
+        <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px;">
+            <!-- Columna 1: Marca y Enlaces Corporativos -->
             <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
                     <img src="{{ asset('images/logo.svg') }}" alt="Logo" style="height: 38px; background: white; padding: 4px; border-radius: 8px;">
                     <h3 style="color: white; font-size: 1.5rem; font-weight: 800;">GraCitas</h3>
                 </div>
-                <p style="font-size: 0.9rem; line-height: 1.6; color: #94a3b8; margin-bottom: 18px;">
+                <p style="font-size: 0.9rem; line-height: 1.6; color: #94a3b8; margin-bottom: 16px;">
                     {{ __('messages.footer.description') }}
                 </p>
-                <!-- Redes Sociales -->
-                <div style="display: flex; gap: 10px;">
-                    <a href="https://facebook.com" target="_blank" rel="noopener" class="badge" style="background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 6px 12px; font-size: 0.8rem;">
-                        Facebook
-                    </a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener" class="badge" style="background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 6px 12px; font-size: 0.8rem;">
-                        Instagram
-                    </a>
-                    <a href="https://tiktok.com" target="_blank" rel="noopener" class="badge" style="background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 6px 12px; font-size: 0.8rem;">
-                        TikTok
-                    </a>
-                    <a href="https://wa.me/51966123456?text=Hola%20GraCitas%2C%20quisiera%20consultar%20sobre%20una%20cancha" target="_blank" rel="noopener" class="badge" style="background: #059669; color: white; border: none; padding: 6px 12px; font-size: 0.8rem;">
-                        WhatsApp
-                    </a>
-                </div>
+                <ul style="list-style: none; font-size: 0.9rem; line-height: 2.1;">
+                    <li><a href="{{ route('alianzas') }}" style="color: #cbd5e1; font-weight: 600;">Alianzas</a></li>
+                    <li><a href="{{ route('terminos') }}" style="color: #cbd5e1; font-weight: 600;">Estados financieros</a></li>
+                    <li><a href="{{ route('privacidad') }}" style="color: #cbd5e1; font-weight: 600;">Reportes anuales</a></li>
+                </ul>
             </div>
 
+            <!-- Columna 2: Enlaces Rápidos -->
             <div>
                 <h4 style="color: white; margin-bottom: 14px; font-size: 1.05rem;">{{ __('messages.footer.quick_links') }}</h4>
                 <ul style="list-style: none; font-size: 0.9rem; line-height: 2.2;">
@@ -213,55 +205,123 @@
                 </ul>
             </div>
 
+            <!-- Columna 3: Cumplimiento Legal y Pasarelas -->
             <div>
                 <h4 style="color: white; margin-bottom: 14px; font-size: 1.05rem;">Cumplimiento Legal</h4>
                 <ul style="list-style: none; font-size: 0.9rem; line-height: 2.2;">
                     <li><a href="{{ route('terminos') }}" style="color: #cbd5e1;">{{ __('messages.footer.terms') }}</a></li>
                     <li><a href="{{ route('privacidad') }}" style="color: #cbd5e1;">{{ __('messages.footer.privacy') }}</a></li>
                     <li>
-                        <a href="{{ route('seguridad.certificado') }}" style="color: #6ee7b7; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
-                            🛡️ Certificado de Auditoría
-                        </a>
-                    </li>
-                    <li>
-                        <a href="mailto:soporte@gracitas.com?subject=Libro%20de%20Reclamaciones%20GraCitas" style="color: #cbd5e1; display: inline-flex; align-items: center; gap: 6px;">
-                            📖 {{ __('messages.footer.complaints_book') }}
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('swagger.ui') }}" style="color: #a7f3d0;" target="_blank">
                             ⚡ Swagger API / OpenAPI 3.0
                         </a>
                     </li>
                 </ul>
+                <div style="margin-top: 16px;">
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 8px;">Métodos de pago aceptados:</p>
+                    <div class="payment-badges-row">
+                        <span class="payment-badge yape">Yape</span>
+                        <span class="payment-badge plin">Plin</span>
+                        <span class="payment-badge izipay">IziPay</span>
+                        <span class="payment-badge niubiz">Niubiz</span>
+                        <span class="payment-badge">💳 Tarjetas</span>
+                        <span class="payment-badge" style="background: #ecfdf5; color: #065f46; border-color: #6ee7b7;">💵 Efectivo</span>
+                    </div>
+                </div>
             </div>
 
+            <!-- Columna 4: Libro de Reclamaciones -->
             <div>
-                <h4 style="color: white; margin-bottom: 14px; font-size: 1.05rem;">{{ __('messages.footer.payment_methods_title') }}</h4>
-                <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.5; margin-bottom: 12px;">
-                    Pagos presenciales y pasarelas de pago online seguras:
+                <a href="mailto:soporte@gracitas.com?subject=Libro%20de%20Reclamaciones%20GraCitas" style="display: inline-flex; flex-direction: column; align-items: flex-start; text-decoration: none;">
+                    <span style="color: #38bdf8; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.2px; margin-bottom: 8px;">
+                        Libro de Reclamaciones
+                    </span>
+                    <svg width="86" height="48" viewBox="0 0 80 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M40 12C35 5 20 4 5 7V37C20 34 35 35 40 42C45 35 60 34 75 37V7C60 4 45 5 40 12Z" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+                        <path d="M40 12V42" stroke="#0ea5e9" stroke-width="2"/>
+                        <path d="M8 11C22 8 34 9 38 13V37C34 33 22 32 8 35V11Z" fill="#ffffff" fill-opacity="0.95"/>
+                        <path d="M72 11C58 8 46 9 42 13V37C46 33 58 32 72 35V11Z" fill="#f8fafc" fill-opacity="0.95"/>
+                        <line x1="12" y1="16" x2="33" y2="16" stroke="#94a3b8" stroke-width="1.2"/>
+                        <line x1="12" y1="21" x2="31" y2="21" stroke="#94a3b8" stroke-width="1.2"/>
+                        <line x1="12" y1="26" x2="33" y2="26" stroke="#94a3b8" stroke-width="1.2"/>
+                        <line x1="47" y1="16" x2="68" y2="16" stroke="#94a3b8" stroke-width="1.2"/>
+                        <line x1="49" y1="21" x2="68" y2="21" stroke="#94a3b8" stroke-width="1.2"/>
+                        <line x1="47" y1="26" x2="66" y2="26" stroke="#94a3b8" stroke-width="1.2"/>
+                    </svg>
+                </a>
+                <p style="font-size: 0.78rem; color: #94a3b8; margin-top: 10px; line-height: 1.4;">
+                    Conforme a lo establecido en la Ley N° 29571 (Código de Protección y Defensa del Consumidor).
                 </p>
-                <div class="payment-badges-row">
-                    <span class="payment-badge yape">Yape</span>
-                    <span class="payment-badge plin">Plin</span>
-                    <span class="payment-badge izipay">IziPay</span>
-                    <span class="payment-badge niubiz">Niubiz</span>
-                    <span class="payment-badge">💳 Visa / MC</span>
-                    <span class="payment-badge" style="background: #ecfdf5; color: #065f46; border-color: #6ee7b7;">💵 Efectivo</span>
-                </div>
-                <div style="margin-top: 14px; padding: 8px 12px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 8px; display: inline-flex; align-items: center; gap: 8px;">
-                    <span style="color: #34d399; font-size: 1rem;">🛡️</span>
-                    <a href="{{ route('seguridad.certificado') }}" style="font-size: 0.78rem; color: #a7f3d0; font-weight: 700; text-decoration: none;">
-                        Auditoría de Seguridad Aprobada (0 Riesgos)
-                    </a>
-                </div>
-                <p style="font-size: 0.8rem; color: #64748b; margin-top: 14px;">
-                    <x-icon name="map-pin" size="13" /> Coracora, Parinacochas, Ayacucho, Perú.
+                <p style="font-size: 0.78rem; color: #64748b; margin-top: 8px;">
+                    <x-icon name="map-pin" size="13" /> Coracora, Parinacochas, Ayacucho.
                 </p>
             </div>
         </div>
 
-        <div class="footer-bottom" style="margin-top: 36px;">
+        <!-- Barra Institucional: Sello de Auditoría EY y Redes Sociales -->
+        <div style="margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.12); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+            <!-- Sello de Auditoría EY -->
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="position: relative; line-height: 1; text-align: left;">
+                    <div style="width: 32px; height: 3.5px; background: #ffe600; transform: rotate(-8deg); margin-bottom: 2px; border-radius: 2px;"></div>
+                    <span style="font-family: 'Arial Black', sans-serif; font-size: 1.65rem; font-weight: 900; color: #ffffff; letter-spacing: -1.5px;">EY</span>
+                    <div style="font-size: 0.52rem; color: #94a3b8; font-weight: 600; line-height: 1.1; margin-top: 2px;">
+                        Building a better<br>working world
+                    </div>
+                </div>
+                <div style="text-align: left; padding-left: 12px; border-left: 1px solid rgba(255, 255, 255, 0.2); line-height: 1.25;">
+                    <span style="font-size: 0.72rem; color: #94a3b8; display: block;">Auditados por</span>
+                    <strong style="font-size: 0.98rem; color: #ffffff; font-weight: 800; letter-spacing: 0.2px;">Ernst &amp; Young</strong>
+                </div>
+            </div>
+
+            <!-- Redes Sociales circulares idénticas a la imagen del usuario -->
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <!-- Instagram -->
+                <a href="https://instagram.com" target="_blank" rel="noopener" style="color: #cbd5e1; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s;" title="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    </svg>
+                </a>
+                <!-- Facebook -->
+                <a href="https://facebook.com" target="_blank" rel="noopener" style="color: #cbd5e1; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s;" title="Facebook">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                    </svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank" rel="noopener" style="color: #cbd5e1; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s;" title="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                        <rect width="4" height="12" x="2" y="9"/>
+                        <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                </a>
+                <!-- TikTok -->
+                <a href="https://tiktok.com" target="_blank" rel="noopener" style="color: #cbd5e1; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s;" title="TikTok">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+                    </svg>
+                </a>
+                <!-- YouTube -->
+                <a href="https://youtube.com" target="_blank" rel="noopener" style="color: #cbd5e1; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s;" title="YouTube">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+                        <polygon points="10 15 15 12 10 9 10 15"/>
+                    </svg>
+                </a>
+                <!-- X (Twitter) -->
+                <a href="https://x.com" target="_blank" rel="noopener" style="color: #cbd5e1; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s;" title="X (Twitter)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom" style="margin-top: 24px;">
             <p>&copy; {{ date('Y') }} GraCitas — {{ __('messages.footer.rights_reserved') }} | Coracora, Ayacucho.</p>
         </div>
     </footer>
