@@ -81,7 +81,7 @@ class AvailabilityService
             } elseif ($reservaSolapada) {
                 $disponible = false;
                 $estado = 'reservado';
-                $detalle = 'Reservado ('.$reservaSolapada->codigo.')';
+                $detalle = 'Horario no disponible';
             } elseif ($bloqueoSolapado) {
                 $disponible = false;
                 $estado = 'bloqueado';

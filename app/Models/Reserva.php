@@ -58,8 +58,8 @@ class Reserva extends Model
             return false;
         }
 
-        // Permitir cancelación si faltan al menos 2 horas para el inicio
-        return Carbon::now()->diffInMinutes($this->inicio, false) >= 120;
+        // Permitir cancelación si faltan al menos 2 horas para el inicio en la zona horaria del local (America/Lima)
+        return Carbon::now('America/Lima')->diffInMinutes(Carbon::parse($this->inicio)->setTimezone('America/Lima'), false) >= 120;
     }
 
     public function getEstadoBadgeAttribute(): array

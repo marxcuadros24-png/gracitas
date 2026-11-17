@@ -151,10 +151,28 @@ class AuthController extends Controller
             }
         }
 
+        $emailChanged = $user->email !== $validated['email'];
+
         $user->name = $validated['name'];
         $user->email = $validated['email'];
         $user->telefono = $validated['telefono'] ?? null;
+
+        if ($emailChanged) {
+            $user->email_verified_at = null;
+        }
+
         $user->save();
+
+        if ($emailChanged) {
+            try {
+                $user->sendEmailVerificationNotification();
+            } catch (\Throwable $e) {
+                Log::error('Error al enviar correo de verificación tras cambio de email: '.$e->getMessage());
+            }
+
+            return redirect()->route('verification.notice')
+                ->with('warning', 'Has actualizado tu dirección de correo electrónico. Te hemos enviado un enlace de confirmación a tu nueva bandeja.');
+        }
 
         return back()->with('success', 'Perfil actualizado satisfactoriamente.');
     }

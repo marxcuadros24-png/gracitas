@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -155,11 +157,21 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             // 1. Desvincular cualquier pago que este usuario haya registrado como cobrador/propietario
             Pago::where('registrado_por', $this->id)->update(['registrado_por' => null]);
 
-            // 2. Si es cliente: eliminar sus reservas y los pagos asociados a ellas
+            // 2. Si es cliente: anonimizar datos personales si tiene reservas/pagos históricos para preservar
+            // la integridad financiera y contable de los establecimientos deportivos
             if ($this->isCliente()) {
-                $reservaIds = $this->reservas()->pluck('id');
-                Pago::whereIn('reserva_id', $reservaIds)->delete();
-                $this->reservas()->delete();
+                if ($this->reservas()->exists()) {
+                    $this->update([
+                        'name' => 'Usuario Eliminado',
+                        'email' => 'eliminado_'.$this->id.'_'.time().'@gracitas.local',
+                        'telefono' => null,
+                        'password' => Hash::make(Str::random(32)),
+                        'activo' => false,
+                        'remember_token' => null,
+                    ]);
+
+                    return;
+                }
             }
 
             // 3. Si es propietario: eliminar pagos, reservas, horarios, bloqueos, canchas y su único local
