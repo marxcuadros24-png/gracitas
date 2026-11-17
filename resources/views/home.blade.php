@@ -17,6 +17,9 @@
             <span class="hero-pill">
                 ⚡ 100% Mobile First
             </span>
+            <a href="{{ route('seguridad.certificado') }}" class="hero-pill" style="background: rgba(16, 185, 129, 0.25); border-color: rgba(52, 211, 153, 0.5); color: #a7f3d0; text-decoration: none;">
+                <x-icon name="shield" size="14" /> Auditoría de Seguridad Aprobada
+            </a>
         </div>
 
         <!-- Titular Principal -->
@@ -376,7 +379,103 @@
     </div>
 </section>
 
-<!-- 5. Captación B2B (Sección para Dueños de Canchas / Partners) -->
+<!-- 5. Certificado de Auditoría de Seguridad & Confianza Digital -->
+<section id="certificado-auditoria" style="background: #ffffff; padding: clamp(48px, 6vw, 76px) 20px; border-bottom: 1px solid var(--border);">
+    <div class="container">
+        <div style="background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); border-radius: 20px; padding: clamp(28px, 5vw, 44px); color: white; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(6, 78, 59, 0.25);">
+            <!-- Efectos de luz -->
+            <div style="position: absolute; top: -60px; right: -60px; width: 320px; height: 320px; background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+            <div style="position: absolute; bottom: -80px; left: -80px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(5, 150, 105, 0.2) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+
+            <div style="position: relative; z-index: 10; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; align-items: center;">
+                <!-- Columna Izquierda: Información del Certificado -->
+                <div>
+                    <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(52, 211, 153, 0.4); padding: 5px 14px; border-radius: 9999px; font-size: 0.8rem; font-weight: 800; color: #6ee7b7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;">
+                        <x-icon name="shield" size="14" /> Auditoría de Seguridad Aprobada
+                    </div>
+
+                    <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); color: #ffffff; line-height: 1.25; margin-bottom: 14px; font-weight: 900;">
+                        Certificado de Auditoría de Seguridad &amp; Confianza Digital
+                    </h2>
+
+                    <p style="color: #cbd5e1; font-size: 0.96rem; line-height: 1.6; margin-bottom: 24px;">
+                        Tu tranquilidad es nuestra prioridad. GraCitas ha sido auditada exhaustivamente con <strong>0 vulnerabilidades críticas</strong>, garantizando protección de datos personales (Ley N° 29733), prevención absoluta de sobreventas con bloqueo pesimista y comprobantes blindados contra accesos no autorizados.
+                    </p>
+
+                    <!-- Lista de 4 Garantías Auditadas -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 28px; font-size: 0.88rem;">
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <span style="color: #34d399; font-weight: 800; font-size: 1.1rem; line-height: 1;">✓</span>
+                            <div>
+                                <strong style="color: white; display: block;">Control IDOR Blindado</strong>
+                                <span style="color: #94a3b8; font-size: 0.8rem;">Comprobantes solo visibles por su titular</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <span style="color: #34d399; font-weight: 800; font-size: 1.1rem; line-height: 1;">✓</span>
+                            <div>
+                                <strong style="color: white; display: block;">Anti-Overbooking Pesimista</strong>
+                                <span style="color: #94a3b8; font-size: 0.8rem;">Cero colisiones de horario en cancha</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <span style="color: #34d399; font-weight: 800; font-size: 1.1rem; line-height: 1;">✓</span>
+                            <div>
+                                <strong style="color: white; display: block;">Privacidad de Disponibilidad</strong>
+                                <span style="color: #94a3b8; font-size: 0.8rem;">Códigos de reserva 100% protegidos</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <span style="color: #34d399; font-weight: 800; font-size: 1.1rem; line-height: 1;">✓</span>
+                            <div>
+                                <strong style="color: white; display: block;">Cifrado JWT &amp; Rate Limiting</strong>
+                                <span style="color: #94a3b8; font-size: 0.8rem;">Mitigación activa de fuerza bruta</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de Acción -->
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="{{ route('seguridad.certificado') }}" class="btn btn-primary" style="padding: 12px 26px; font-size: 0.95rem; font-weight: 800; border-radius: 9999px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);">
+                            <x-icon name="shield" size="16" /> Ver Certificado Oficial
+                        </a>
+                        <a href="{{ route('seguridad.auditoria') }}" target="_blank" class="btn btn-outline" style="border-color: rgba(255,255,255,0.3); color: white; border-radius: 9999px; padding: 12px 22px; font-size: 0.95rem;">
+                            <x-icon name="download" size="16" /> Descargar Informe PDF
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Sello Gráfico de Certificación -->
+                <div style="display: flex; justify-content: center;">
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(52, 211, 153, 0.4); border-radius: 20px; padding: 28px 24px; text-align: center; max-width: 320px; width: 100%; backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.3);">
+                        <div style="width: 72px; height: 72px; margin: 0 auto 14px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4); border: 3px solid rgba(255,255,255,0.2);">
+                            <x-icon name="shield" size="36" />
+                        </div>
+                        <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: #a7f3d0; font-weight: 800;">
+                            SELLO DE AUDITORÍA
+                        </div>
+                        <div style="font-size: 1.35rem; font-weight: 900; color: #ffffff; margin-top: 4px; margin-bottom: 8px;">
+                            GraCitas Verified
+                        </div>
+                        <div style="display: inline-block; background: #10b981; color: #064e3b; font-weight: 900; font-size: 0.9rem; padding: 3px 14px; border-radius: 9999px; margin-bottom: 14px;">
+                            CALIFICACIÓN A+
+                        </div>
+                        <div style="border-top: 1px solid rgba(255,255,255,0.12); padding-top: 12px; font-size: 0.78rem; color: #cbd5e1; line-height: 1.5;">
+                            <div><strong>Código:</strong> CERT-SEC-2026-A1</div>
+                            <div><strong>Riesgos Críticos:</strong> 0 detectados</div>
+                            <div><strong>Fecha:</strong> Noviembre 2026</div>
+                        </div>
+                        <a href="{{ route('seguridad.certificado') }}" style="display: block; margin-top: 14px; font-size: 0.82rem; color: #34d399; font-weight: 700; text-decoration: underline;">
+                            Verificar validez técnica →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. Captación B2B (Sección para Dueños de Canchas / Partners) -->
 <section style="background: #f8fafc; padding: clamp(48px, 6vw, 80px) 20px;">
     <div class="container">
         <div class="b2b-banner">

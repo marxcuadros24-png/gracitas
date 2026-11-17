@@ -11,9 +11,12 @@
 <p align="center">
   <a href="https://laravel.com"><img src="https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 12"></a>
   <a href="https://www.php.net"><img src="https://img.shields.io/badge/PHP-8.5-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.5"></a>
+  <a href="Informe_Auditoria_Seguridad_GraCitas.pdf"><img src="https://img.shields.io/badge/Security_Audit-Grade_A%2B-10B981?style=for-the-badge&logo=shield&logoColor=white" alt="Security Audit Grade A+"></a>
+  <a href="Informe_Seguimiento_Remediaciones_GraCitas.pdf"><img src="https://img.shields.io/badge/Vulnerabilities-0_Critical_%2F_0_High-059669?style=for-the-badge&logo=checkmarx&logoColor=white" alt="0 Vulnerabilities"></a>
   <a href="https://laravel.com/docs/reverb"><img src="https://img.shields.io/badge/Laravel_Reverb-WebSockets-F97316?style=for-the-badge&logo=laravel&logoColor=white" alt="Reverb WebSockets"></a>
   <a href="https://jwt.io"><img src="https://img.shields.io/badge/Security-JWT_Auth-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT Auth"></a>
   <a href="https://laravel.com/docs/rate-limiting"><img src="https://img.shields.io/badge/Security-Rate_Limiting-10B981?style=for-the-badge&logo=shield&logoColor=white" alt="Rate Limiting"></a>
+  <a href="docs/INFORME_MARKETING_DIGITAL_Y_ECOMMERCE.pdf"><img src="https://img.shields.io/badge/Marketing-E--Commerce_Report-0284C7?style=for-the-badge&logo=googleanalytics&logoColor=white" alt="Marketing Report"></a>
   <a href="https://swagger.io"><img src="https://img.shields.io/badge/Swagger-OpenAPI_3.0-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="Swagger OpenAPI 3.0"></a>
   <img src="https://img.shields.io/badge/Languages-ES_%7C_EN_%7C_FR-047857?style=for-the-badge" alt="Multilingual ES EN FR">
   <img src="https://img.shields.io/badge/Git_Flow-Workflow-1E293B?style=for-the-badge&logo=git&logoColor=white" alt="Git Flow">
@@ -26,17 +29,19 @@
 
 1. [Descripción General](#-descripción-general)
 2. [Características Principales](#-características-principales)
-3. [Tecnologías y Stack](#-tecnologías-y-stack)
-4. [Roles y Permisos](#-roles-y-permisos-rbac)
-5. [Cuentas de Demostración](#-cuentas-de-demostración)
-6. [Instalación y Configuración](#-instalación-y-configuración)
-7. [WebSockets con Laravel Reverb](#-websockets-con-laravel-reverb)
-8. [Documentación API (Swagger / OpenAPI 3.0)](#-documentación-api-swagger--openapi-30)
-9. [Soporte Multilingüe](#-soporte-multilingüe-es--en--fr)
-10. [Manual de Usuario](#-manual-de-usuario-comercial)
-11. [Flujo de Trabajo Git Flow](#-flujo-de-trabajo-git-flow)
-12. [Pruebas Automatizadas](#-pruebas-automatizadas)
-13. [Licencia](#-licencia)
+3. [Certificado Oficial de Auditoría y Remediación de Seguridad](#-certificado-oficial-de-auditoría-y-remediación-de-seguridad)
+4. [Estrategia de Marketing Digital y E-Commerce](#-estrategia-de-marketing-digital-y-e-commerce)
+5. [Tecnologías y Stack](#-tecnologías-y-stack)
+6. [Roles y Permisos (RBAC)](#-roles-y-permisos-rbac)
+7. [Cuentas de Demostración](#-cuentas-de-demostración)
+8. [Instalación y Configuración](#-instalación-y-configuración)
+9. [WebSockets con Laravel Reverb](#-websockets-con-laravel-reverb)
+10. [Documentación API (Swagger / OpenAPI 3.0)](#-documentación-api-swagger--openapi-30)
+11. [Soporte Multilingüe](#-soporte-multilingüe-es--en--fr)
+12. [Manual de Usuario Comercial](#-manual-de-usuario-comercial)
+13. [Flujo de Trabajo Git Flow](#-flujo-de-trabajo-git-flow)
+14. [Pruebas Automatizadas](#-pruebas-automatizadas)
+15. [Licencia](#-licencia)
 
 ---
 
@@ -57,6 +62,11 @@ Para los dueños de complejos deportivos y los administradores generales, la pla
   - Prueba social (Social Proof) con testimonios reales de capitanes de Coracora y calificación 5 estrellas.
   - Sección de captación B2B (*"¿Eres dueño de una cancha? Únete como Partner"*) para dueños de locales deportivos.
   - Cumplimiento legal y pasarelas de pago: Términos y Condiciones (`/terminos`), Políticas de Privacidad (`/privacidad` - Ley N° 29733), Libro de Reclamaciones, IziPay, Niubiz, Yape, Plin y Efectivo en ventanilla.
+- **Certificado de Auditoría de Seguridad & Confianza Digital (Security Verified)**:
+  - Sello oficial de certificación institucional integrado en la landing page (`/` y `/seguridad/certificado`).
+  - Dictamen oficial: **APROBADO CON EXCELENCIA (GRADO A+)** con 0 vulnerabilidades críticas residuales.
+  - Mitigación integral de riesgos: Control IDOR en comprobantes de pago, bloqueo pesimista `lockForUpdate` anti-overbooking concurrente, sanitización de disponibilidad eliminando códigos de reserva privados, anonimización contable de usuarios eliminados (Ley N° 29733), re-verificación de email y unificación de zona horaria a `America/Lima`.
+  - Descarga directa de informes técnicos en PDF desde la plataforma web.
 - **Seguridad Avanzada con JWT (JSON Web Tokens)**:
   - Autenticación criptográfica sin estado con algoritmo HMAC SHA-256 (`tymon/jwt-auth`).
   - Emisión de tokens de acceso (`access_token`), tiempo de expiración configurable (`expires_in`) y renovación segura (`/api/auth/refresh`).
@@ -89,6 +99,58 @@ Para los dueños de complejos deportivos y los administradores generales, la pla
   - Generación de comprobante digital con código de reserva único para pago presencial en el local.
 -  **Diseño Responsivo y Experiencia de Usuario Moderna**:
   - Interfaz limpia, optimizada para móviles y tablets con paleta de colores institucional y tipografía Plus Jakarta Sans / Outfit.
+
+---
+
+## 🛡️ Certificado Oficial de Auditoría y Remediación de Seguridad
+
+La plataforma ha sido sometida a una rigurosa **Auditoría de Seguridad de Aplicaciones Web** y posterior verificación de remediaciones bajo estándares OWASP Top 10 y buenas prácticas de ingeniería de software para comercio electrónico:
+
+<p align="center">
+  <a href="Informe_Auditoria_Seguridad_GraCitas.pdf">
+    <img src="https://img.shields.io/badge/Dictamen-APROBADO_GRADO_A%2B-10B981?style=for-the-badge&logo=shield&logoColor=white" alt="Dictamen Aprobado Grado A+">
+  </a>
+  <a href="Informe_Seguimiento_Remediaciones_GraCitas.pdf">
+    <img src="https://img.shields.io/badge/Mitigación-100%25_Remediado-059669?style=for-the-badge&logo=checkmarx&logoColor=white" alt="100% Remediado">
+  </a>
+  <a href="http://127.0.0.1:8000/seguridad/certificado">
+    <img src="https://img.shields.io/badge/Certificado_Web-%2Fseguridad%2Fcertificado-0284C7?style=for-the-badge&logo=firefox&logoColor=white" alt="Certificado Web">
+  </a>
+</p>
+
+### Matriz de Controles de Seguridad Remediados:
+
+| # | Vulnerabilidad / Control | Nivel Previo | Solución Técnica Implementada | Estado |
+|---|--------------------------|:------------:|-------------------------------|:------:|
+| **SEC-01** | **Control IDOR en Comprobantes de Pago** | `Alto` | Autorización estricta en controladores: descarga/vista restringida exclusivamente al cliente titular y propietario del complejo. | `Mitigado` |
+| **SEC-02** | **Anti-Overbooking Concurrente** | `Alto` | Bloqueo pesimista a nivel de motor de base de datos (`lockForUpdate`) dentro de transacciones atómicas al reservar. | `Mitigado` |
+| **SEC-03** | **Fuga de Códigos en Disponibilidad Pública** | `Medio` | Sanitización de `AvailabilityService` eliminando códigos privados de reserva del JSON de slots ocupados. | `Mitigado` |
+| **SEC-04** | **Anonimización Contable de Usuarios** | `Medio` | Eliminación con anonimización de datos sensibles preservando la trazabilidad financiera del local y cumpliendo la Ley N° 29733. | `Mitigado` |
+| **SEC-05** | **Re-verificación de Correo Electrónico** | `Medio` | Revocación inmediata de `email_verified_at` y reenvío de confirmación firmada ante cambio de email en el perfil. | `Mitigado` |
+| **SEC-06** | **Zona Horaria del Sistema** | `Bajo` | Configuración unificada a `America/Lima` asegurando cálculo consistente en cancelaciones (margen de 2 horas). | `Mitigado` |
+| **SEC-07** | **Autenticación Criptográfica JWT** | `Preventivo` | Tokens HMAC SHA-256 sin estado con revocación en lista negra (`/api/auth/logout`) y claims de rol/estado. | `Activo` |
+| **SEC-08** | **Limitación de Tasa (Rate Limiting)** | `Preventivo` | Throttling por IP y credenciales con vista de respuesta amigable HTTP 429 (`errors/429.blade.php`). | `Activo` |
+
+### Documentos Oficiales de Auditoría:
+- 📄 **Informe Completo de Auditoría:** [`Informe_Auditoria_Seguridad_GraCitas.pdf`](Informe_Auditoria_Seguridad_GraCitas.pdf) *(HTML: [`informe_auditoria.html`](informe_auditoria.html))*
+- 📄 **Informe de Seguimiento y Verificación de Remediaciones:** [`Informe_Seguimiento_Remediaciones_GraCitas.pdf`](Informe_Seguimiento_Remediaciones_GraCitas.pdf) *(HTML: [`informe_seguimiento.html`](informe_seguimiento.html))*
+- 🛡️ **Página del Certificado en Vivo:** Accesible en [`http://127.0.0.1:8000/seguridad/certificado`](http://127.0.0.1:8000/seguridad/certificado) con enlaces de descarga directa.
+
+---
+
+## 📈 Estrategia de Marketing Digital y E-Commerce
+
+El proyecto integra un informe ejecutivo comprehensivo de 5 fases formativas alineado a usabilidad web y mobile marketing:
+
+- 📄 **Informe Ejecutivo en PDF:** [`docs/INFORME_MARKETING_DIGITAL_Y_ECOMMERCE.pdf`](docs/INFORME_MARKETING_DIGITAL_Y_ECOMMERCE.pdf)
+- 🌐 **Fuente Maquetada en HTML:** [`docs/INFORME_MARKETING_DIGITAL_Y_ECOMMERCE.html`](docs/INFORME_MARKETING_DIGITAL_Y_ECOMMERCE.html)
+
+### Fases Estratégicas:
+1. **Fase 1: Análisis y Consumidor Digital** — Buyer Persona B2C (*Carlos, el organizador*) y Buyer Persona B2B (*Don José, dueño del local*).
+2. **Fase 2: Estrategia de Tráfico** — SEO Local Coracora/Ayacucho, Meta Ads / TikTok Ads (Geofencing 15 km), Google Ads SEM.
+3. **Fase 3: E-Commerce, Integración y Logística** — Pasarelas (IziPay, Niubiz, Yape, Plin), prevención de overbooking por WebSockets (Reverb) y comprobante digital con código único.
+4. **Fase 4: Inbound Marketing y Fidelización CRM** — WhatsApp/Email automatizado (recordatorio $T-2$ horas), programa de lealtad por puntos y reportes mensuales B2B.
+5. **Fase 5: Analítica Digital y Optimización** — Embudos de conversión en GA4, métricas CAC ($S/ 8.50$), CR ($4.8\%$), LTV ($S/ 480.00$) y pruebas A/B.
 
 ---
 
@@ -285,7 +347,8 @@ php artisan test
 ```
 
 ### Cobertura de Pruebas:
-- `tests/Feature/LandingPageTest.php`: Verificación integral de la landing page mobile-marketing, titular hero, 3 pasos de reserva, catálogo e-commerce de canchas populares, prueba social B2C, captación B2B, pie de página y páginas legales (`/terminos` y `/privacidad`).
+- `tests/Feature/SecurityRemediationsTest.php`: Validación de zona horaria `America/Lima`, sanitización de disponibilidad pública sin filtrado de códigos de reserva y cálculo de políticas de cancelación.
+- `tests/Feature/LandingPageTest.php`: Verificación integral de la landing page mobile-marketing, titular hero, 3 pasos de reserva, catálogo e-commerce de canchas populares, prueba social B2C, sección y sellos del Certificado de Auditoría de Seguridad con descarga de PDFs, captación B2B, pie de página y páginas legales (`/terminos` y `/privacidad`).
 - `tests/Feature/RateLimitingTest.php`: Protección contra fuerza bruta en login web/API, límite de peticiones de registro, protección de endpoint de recuperación de contraseñas, validación de cabeceras `Retry-After`, `X-RateLimit-Limit` y respuesta HTTP 429.
 - `tests/Feature/JwtAuthenticationTest.php`: Emisión de tokens Bearer JWT, validación de credenciales, decodificación de claims (rol, activo), endpoint `/api/auth/me`, refresco y logout/revocación.
 - `tests/Feature/LocaleTest.php`: Cambio entre idiomas (ES, EN, FR), middleware de sesión, persistencia y rechazo de locales no válidos.
