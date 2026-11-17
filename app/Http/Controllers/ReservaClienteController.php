@@ -59,13 +59,12 @@ class ReservaClienteController extends Controller
             'duracion_min.required' => 'La duración es obligatoria.',
         ]);
 
-        $cancha = Cancha::findOrFail($validated['cancha_id']);
+        // Usamos transacción de base de datos con bloqueo pesimista para evitar colisiones simultáneas
+        return DB::transaction(function () use ($validated) {
+            $cancha = Cancha::where('id', $validated['cancha_id'])->lockForUpdate()->firstOrFail();
+            $inicio = Carbon::parse($validated['fecha'].' '.$validated['hora_inicio'], 'America/Lima');
+            $fin = $inicio->copy()->addMinutes((int) $validated['duracion_min']);
 
-        $inicio = Carbon::parse($validated['fecha'].' '.$validated['hora_inicio'], 'America/Lima');
-        $fin = $inicio->copy()->addMinutes((int) $validated['duracion_min']);
-
-        // Usamos transacción de base de datos para garantizar integridad y evitar reservas simultáneas
-        return DB::transaction(function () use ($cancha, $inicio, $fin, $validated) {
             // Validar disponibilidad
             $verificacion = $this->availabilityService->checkAvailability($cancha, $inicio, $fin);
 
@@ -122,10 +121,17 @@ class ReservaClienteController extends Controller
             ->with(['cancha.establecimiento.propietario', 'cliente', 'pago'])
             ->firstOrFail();
 
-        // Validar que pertenezca al usuario o que sea admin/propietario
+        // Validar que pertenezca al usuario cliente, al propietario del establecimiento o a un administrador
         $user = Auth::user();
-        if ($user->isCliente() && $reserva->cliente_id !== $user->id) {
+        if ($user->isCliente() && (int) $reserva->cliente_id !== (int) $user->id) {
             abort(403, 'No tienes permiso para ver esta reserva.');
+        }
+
+        if ($user->isPropietario()) {
+            $propietarioId = (int) ($reserva->cancha?->establecimiento?->propietario_id ?? 0);
+            if ($propietarioId !== (int) $user->id) {
+                abort(403, 'No tienes permiso para ver comprobantes de otros establecimientos deportivos.');
+            }
         }
 
         return view('cliente.comprobante', compact('reserva'));
