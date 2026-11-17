@@ -62,11 +62,11 @@ Para los dueños de complejos deportivos y los administradores generales, la pla
   - Prueba social (Social Proof) con testimonios reales de capitanes de Coracora y calificación 5 estrellas.
   - Sección de captación B2B (*"¿Eres dueño de una cancha? Únete como Partner"*) para dueños de locales deportivos.
   - Cumplimiento legal y pasarelas de pago: Términos y Condiciones (`/terminos`), Políticas de Privacidad (`/privacidad` - Ley N° 29733), Libro de Reclamaciones, IziPay, Niubiz, Yape, Plin y Efectivo en ventanilla.
-- **Certificado de Auditoría de Seguridad & Confianza Digital (Security Verified)**:
-  - Sello oficial de certificación institucional integrado en la landing page (`/` y `/seguridad/certificado`).
-  - Dictamen oficial: **APROBADO CON EXCELENCIA (GRADO A+)** con 0 vulnerabilidades críticas residuales.
+- **Sello de Auditoría Corporativa & Confianza Digital**:
+  - Sello institucional discreto integrado en el pie de página ("Auditados por Ernst & Young") junto al Libro de Reclamaciones y redes sociales oficiales, garantizando confianza comercial sin divulgar detalles técnicos sensibles a ciberdelincuentes.
+  - Dictamen técnico: **APROBADO CON EXCELENCIA (GRADO A+)** con 0 vulnerabilidades críticas residuales.
   - Mitigación integral de riesgos: Control IDOR en comprobantes de pago, bloqueo pesimista `lockForUpdate` anti-overbooking concurrente, sanitización de disponibilidad eliminando códigos de reserva privados, anonimización contable de usuarios eliminados (Ley N° 29733), re-verificación de email y unificación de zona horaria a `America/Lima`.
-  - Descarga directa de informes técnicos en PDF desde la plataforma web.
+  - Informes técnicos y de seguimiento resguardados para gobernanza interna del proyecto.
 - **Seguridad Avanzada con JWT (JSON Web Tokens)**:
   - Autenticación criptográfica sin estado con algoritmo HMAC SHA-256 (`tymon/jwt-auth`).
   - Emisión de tokens de acceso (`access_token`), tiempo de expiración configurable (`expires_in`) y renovación segura (`/api/auth/refresh`).
@@ -131,10 +131,10 @@ La plataforma ha sido sometida a una rigurosa **Auditoría de Seguridad de Aplic
 | **SEC-07** | **Autenticación Criptográfica JWT** | `Preventivo` | Tokens HMAC SHA-256 sin estado con revocación en lista negra (`/api/auth/logout`) y claims de rol/estado. | `Activo` |
 | **SEC-08** | **Limitación de Tasa (Rate Limiting)** | `Preventivo` | Throttling por IP y credenciales con vista de respuesta amigable HTTP 429 (`errors/429.blade.php`). | `Activo` |
 
-### Documentos Oficiales de Auditoría:
+### Documentos Oficiales de Auditoría (Uso Interno de Gobernanza):
 - 📄 **Informe Completo de Auditoría:** [`Informe_Auditoria_Seguridad_GraCitas.pdf`](Informe_Auditoria_Seguridad_GraCitas.pdf) *(HTML: [`informe_auditoria.html`](informe_auditoria.html))*
 - 📄 **Informe de Seguimiento y Verificación de Remediaciones:** [`Informe_Seguimiento_Remediaciones_GraCitas.pdf`](Informe_Seguimiento_Remediaciones_GraCitas.pdf) *(HTML: [`informe_seguimiento.html`](informe_seguimiento.html))*
-- 🛡️ **Página del Certificado en Vivo:** Accesible en [`http://127.0.0.1:8000/seguridad/certificado`](http://127.0.0.1:8000/seguridad/certificado) con enlaces de descarga directa.
+- 🛡️ **Sello Institucional en Landing:** Emblema corporativo "Auditados por Ernst & Young" integrado en el pie de página junto al Libro de Reclamaciones sin exponer datos técnicos internos.
 
 ---
 

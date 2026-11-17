@@ -36,25 +36,7 @@ Route::get('/cancha/{cancha}/disponibilidad', [CanchaPublicController::class, 'g
     ->name('canchas.disponibilidad');
 Route::view('/terminos', 'pages.terminos')->name('terminos');
 Route::view('/privacidad', 'pages.privacidad')->name('privacidad');
-Route::view('/seguridad/certificado', 'pages.certificado-seguridad')->name('seguridad.certificado');
-Route::get('/seguridad/auditoria', function () {
-    $path = base_path('Informe_Auditoria_Seguridad_GraCitas.pdf');
-    abort_unless(file_exists($path), 404);
-
-    return response()->file($path, [
-        'Content-Type' => 'application/pdf',
-        'Content-Disposition' => 'inline; filename="Informe_Auditoria_Seguridad_GraCitas.pdf"',
-    ]);
-})->name('seguridad.auditoria');
-Route::get('/seguridad/remediaciones', function () {
-    $path = base_path('Informe_Seguimiento_Remediaciones_GraCitas.pdf');
-    abort_unless(file_exists($path), 404);
-
-    return response()->file($path, [
-        'Content-Type' => 'application/pdf',
-        'Content-Disposition' => 'inline; filename="Informe_Seguimiento_Remediaciones_GraCitas.pdf"',
-    ]);
-})->name('seguridad.remediaciones');
+Route::view('/alianzas', 'pages.terminos')->name('alianzas');
 
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\PasswordResetController;
