@@ -219,6 +219,11 @@
                     <li><a href="{{ route('terminos') }}" style="color: #cbd5e1;">{{ __('messages.footer.terms') }}</a></li>
                     <li><a href="{{ route('privacidad') }}" style="color: #cbd5e1;">{{ __('messages.footer.privacy') }}</a></li>
                     <li>
+                        <a href="{{ route('seguridad.certificado') }}" style="color: #6ee7b7; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+                            🛡️ Certificado de Auditoría
+                        </a>
+                    </li>
+                    <li>
                         <a href="mailto:soporte@gracitas.com?subject=Libro%20de%20Reclamaciones%20GraCitas" style="color: #cbd5e1; display: inline-flex; align-items: center; gap: 6px;">
                             📖 {{ __('messages.footer.complaints_book') }}
                         </a>
@@ -243,6 +248,12 @@
                     <span class="payment-badge niubiz">Niubiz</span>
                     <span class="payment-badge">💳 Visa / MC</span>
                     <span class="payment-badge" style="background: #ecfdf5; color: #065f46; border-color: #6ee7b7;">💵 Efectivo</span>
+                </div>
+                <div style="margin-top: 14px; padding: 8px 12px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 8px; display: inline-flex; align-items: center; gap: 8px;">
+                    <span style="color: #34d399; font-size: 1rem;">🛡️</span>
+                    <a href="{{ route('seguridad.certificado') }}" style="font-size: 0.78rem; color: #a7f3d0; font-weight: 700; text-decoration: none;">
+                        Auditoría de Seguridad Aprobada (0 Riesgos)
+                    </a>
                 </div>
                 <p style="font-size: 0.8rem; color: #64748b; margin-top: 14px;">
                     <x-icon name="map-pin" size="13" /> Coracora, Parinacochas, Ayacucho, Perú.
