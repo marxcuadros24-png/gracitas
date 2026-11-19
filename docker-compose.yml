@@ -17,7 +17,7 @@ services:
       DB_CONNECTION: "mysql"
       DB_HOST: "db"
       DB_PORT: "3306"
-      DB_DATABASE: "gracitas_db"
+      DB_DATABASE: "gracitas"
       DB_USERNAME: "gracitas_user"
       DB_PASSWORD: "secret_password"
       AUTO_MIGRATE: "true"
@@ -32,7 +32,7 @@ services:
     container_name: gracitas_db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: "gracitas_db"
+      MYSQL_DATABASE: "gracitas"
       MYSQL_USER: "gracitas_user"
       MYSQL_PASSWORD: "secret_password"
       MYSQL_ROOT_PASSWORD: "root_password"
@@ -40,6 +40,7 @@ services:
       - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
+      - ./gracitas.sql:/docker-entrypoint-initdb.d/01_gracitas.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
