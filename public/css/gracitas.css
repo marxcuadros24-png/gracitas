@@ -462,9 +462,14 @@ a:hover {
 
 /* Hero Mobile First */
 .hero-section {
-    background: linear-gradient(135deg, #064e3b 0%, #065f46 45%, #0f172a 100%);
+    background-color: #064e3b;
+    background-image: linear-gradient(135deg, rgba(6, 78, 59, 0.82) 0%, rgba(2, 44, 34, 0.92) 100%),
+                      url('/images/hero-cancha.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
-    padding: clamp(48px, 8vw, 84px) 20px;
+    padding: clamp(56px, 9vw, 96px) 20px;
     position: relative;
     overflow: hidden;
 }
@@ -576,18 +581,20 @@ a:hover {
     display: flex;
     flex-direction: column;
     box-shadow: var(--shadow-sm);
-    transition: all 0.25s ease;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s ease;
 }
 
 .pitch-ecommerce-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    border-color: #94a3b8;
+    transform: translateY(-6px);
+    box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.16), 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
 }
 
 .pitch-thumb {
-    height: 160px;
-    background: linear-gradient(135deg, #065f46 0%, #047857 50%, #0f172a 100%);
+    height: 180px;
+    background-color: #064e3b;
     position: relative;
     display: flex;
     align-items: center;
@@ -596,27 +603,57 @@ a:hover {
     color: white;
 }
 
+.pitch-thumb-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pitch-ecommerce-card:hover .pitch-thumb-img {
+    transform: scale(1.06);
+}
+
+.pitch-thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.75) 100%);
+    pointer-events: none;
+    transition: background 0.35s ease;
+}
+
+.pitch-ecommerce-card:hover .pitch-thumb-overlay {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.85) 100%);
+}
+
 .pitch-thumb-turf-pattern {
     position: absolute;
     inset: 0;
-    opacity: 0.15;
+    opacity: 0.12;
     background-image: repeating-linear-gradient(0deg, #ffffff 0px, #ffffff 2px, transparent 2px, transparent 20px),
                       repeating-linear-gradient(90deg, #ffffff 0px, #ffffff 2px, transparent 2px, transparent 20px);
+    pointer-events: none;
 }
 
 .pitch-type-badge {
     position: absolute;
     top: 14px;
     left: 14px;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(6px);
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: #a7f3d0;
     font-size: 0.75rem;
     font-weight: 700;
-    padding: 4px 10px;
+    padding: 5px 11px;
     border-radius: 6px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 4;
 }
 
 .pitch-live-badge {
@@ -627,12 +664,13 @@ a:hover {
     color: white;
     font-size: 0.72rem;
     font-weight: 800;
-    padding: 4px 10px;
+    padding: 5px 12px;
     border-radius: 9999px;
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.45);
+    z-index: 4;
 }
 
 .pulse-dot {
@@ -648,6 +686,115 @@ a:hover {
     0% { transform: scale(0.95); opacity: 0.7; }
     50% { transform: scale(1.4); opacity: 1; }
     100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+/* Modern Ping Radar Animation */
+.ping-indicator {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.ping-wave {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #34d399;
+    opacity: 0.8;
+    animation: pingAnimation 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.ping-core {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10b981;
+    box-shadow: 0 0 6px rgba(52, 211, 153, 0.8);
+}
+
+.ping-indicator.ping-white .ping-wave {
+    background-color: #ffffff;
+}
+
+.ping-indicator.ping-white .ping-core {
+    background-color: #ffffff;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+@keyframes pingAnimation {
+    75%, 100% {
+        transform: scale(2.6);
+        opacity: 0;
+    }
+}
+
+/* Scroll Reveal Animation */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-on-scroll[data-delay="1"] { transition-delay: 0.08s; }
+.reveal-on-scroll[data-delay="2"] { transition-delay: 0.16s; }
+.reveal-on-scroll[data-delay="3"] { transition-delay: 0.24s; }
+.reveal-on-scroll[data-delay="4"] { transition-delay: 0.32s; }
+
+/* Sub-tarjetas de canchas en Establecimientos */
+.complex-pitch-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    border-left: 3px solid transparent;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    color: inherit;
+}
+
+.complex-pitch-card:hover {
+    transform: translateX(6px);
+    border-left-color: var(--primary);
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
+}
+
+.complex-feature-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f8fafc;
+    color: #334155;
+    padding: 5px 11px;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.complex-feature-pill:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
 }
 
 .pitch-body {

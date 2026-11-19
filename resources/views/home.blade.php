@@ -1,7 +1,7 @@
 <x-layouts.app :title="__('messages.home.hero_title')">
 
 <!-- 1. Cabecera (Hero Section - Optimizado para Mobile Marketing) -->
-<section class="hero-section">
+<section class="hero-section" style="background-image: linear-gradient(135deg, rgba(6, 78, 59, 0.82) 0%, rgba(2, 44, 34, 0.92) 100%), url('{{ asset('images/hero-cancha.jpg') }}');">
     <div style="position: absolute; top: -60px; right: -60px; width: 450px; height: 450px; background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
     <div style="position: absolute; bottom: -80px; left: -80px; width: 380px; height: 380px; background: radial-gradient(circle, rgba(6, 95, 70, 0.4) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
 
@@ -12,7 +12,11 @@
                 <x-icon name="ball" size="14" /> {{ __('messages.home.hero_tag') }}
             </span>
             <span class="hero-pill" style="background: rgba(16, 185, 129, 0.25); border-color: rgba(52, 211, 153, 0.4); color: #a7f3d0;">
-                <span class="pulse-dot"></span> WebSockets en Tiempo Real
+                <span class="ping-indicator">
+                    <span class="ping-wave"></span>
+                    <span class="ping-core"></span>
+                </span>
+                WebSockets en Tiempo Real
             </span>
             <span class="hero-pill">
                 ⚡ 100% Mobile First
@@ -44,20 +48,20 @@
             </form>
         </div>
 
-        <!-- Métricas de Impacto -->
+        <!-- Métricas de Impacto con Contadores Animados -->
         <div style="display: flex; justify-content: center; gap: clamp(16px, 4vw, 36px); margin-top: 36px; flex-wrap: wrap;">
             <div style="text-align: center;">
-                <div style="font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; color: #a7f3d0;">{{ $totalEstablecimientos }}</div>
+                <div class="hero-counter" data-target="{{ $totalEstablecimientos }}" data-prefix="" data-suffix="" style="font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; color: #a7f3d0;">0</div>
                 <div style="font-size: 0.8rem; color: #cbd5e1; text-transform: uppercase; font-weight: 600;">{{ __('messages.home.stats_complexes') }}</div>
             </div>
             <div style="width: 1px; background: rgba(255,255,255,0.2); height: 38px;"></div>
             <div style="text-align: center;">
-                <div style="font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; color: #a7f3d0;">{{ $totalCanchas }}</div>
+                <div class="hero-counter" data-target="{{ $totalCanchas }}" data-prefix="" data-suffix="" style="font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; color: #a7f3d0;">0</div>
                 <div style="font-size: 0.8rem; color: #cbd5e1; text-transform: uppercase; font-weight: 600;">{{ __('messages.home.stats_pitches') }}</div>
             </div>
             <div style="width: 1px; background: rgba(255,255,255,0.2); height: 38px;"></div>
             <div style="text-align: center;">
-                <div style="font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; color: #a7f3d0;">&lt; 60 seg</div>
+                <div class="hero-counter" data-target="60" data-prefix="&lt; " data-suffix=" seg" style="font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; color: #a7f3d0;">&lt; 0 seg</div>
                 <div style="font-size: 0.8rem; color: #cbd5e1; text-transform: uppercase; font-weight: 600;">Tiempo de Reserva</div>
             </div>
         </div>
@@ -79,7 +83,7 @@
 
         <div class="steps-grid">
             <!-- Paso 1 -->
-            <div class="step-card">
+            <div class="step-card reveal-on-scroll" data-delay="1">
                 <span class="step-number-badge">1</span>
                 <div class="step-icon-wrap">
                     <x-icon name="building" size="28" />
@@ -96,7 +100,7 @@
             </div>
 
             <!-- Paso 2 -->
-            <div class="step-card">
+            <div class="step-card reveal-on-scroll" data-delay="2">
                 <span class="step-number-badge">2</span>
                 <div class="step-icon-wrap">
                     <x-icon name="dollar" size="28" />
@@ -113,7 +117,7 @@
             </div>
 
             <!-- Paso 3 -->
-            <div class="step-card">
+            <div class="step-card reveal-on-scroll" data-delay="3">
                 <span class="step-number-badge">3</span>
                 <div class="step-icon-wrap">
                     <x-icon name="ball" size="28" />
@@ -155,10 +159,21 @@
         <!-- Grid de Canchas Populares E-Commerce -->
         <div class="popular-pitches-grid">
             @forelse($canchasPopulares as $popular)
-                <div class="pitch-ecommerce-card">
-                    <!-- Thumbnail y Badges -->
+                @php
+                    $pitchNameLower = strtolower($popular->nombre);
+                    $pitchImg = match(true) {
+                        str_contains($pitchNameLower, 'domo') || str_contains($pitchNameLower, 'techad') => 'cancha-domo.jpg',
+                        str_contains($pitchNameLower, 'bombonerita') || $popular->capacidad <= 10 => 'cancha-f5.jpg',
+                        str_contains($pitchNameLower, 'campeones') || $popular->capacidad <= 14 => 'cancha-f7.jpg',
+                        str_contains($pitchNameLower, 'san pedro') || str_contains($pitchNameLower, 'principal') || $popular->capacidad > 14 => 'cancha-f8.jpg',
+                        default => 'hero-cancha.jpg',
+                    };
+                @endphp
+                <div class="pitch-ecommerce-card reveal-on-scroll" data-delay="{{ ($loop->index % 4) + 1 }}">
+                    <!-- Thumbnail y Badges con Imagen Fotográfica y Overlay -->
                     <div class="pitch-thumb">
-                        <div class="pitch-thumb-turf-pattern"></div>
+                        <img src="{{ asset('images/' . $pitchImg) }}" alt="{{ $popular->nombre }}" class="pitch-thumb-img" loading="lazy">
+                        <div class="pitch-thumb-overlay"></div>
                         <span class="pitch-type-badge">
                             @if($popular->capacidad <= 10)
                                 Fútbol 5 (F5)
@@ -169,11 +184,15 @@
                             @endif
                         </span>
                         <span class="pitch-live-badge">
-                            <span class="pulse-dot"></span> En Vivo
+                            <span class="ping-indicator ping-white">
+                                <span class="ping-wave"></span>
+                                <span class="ping-core"></span>
+                            </span>
+                            En Vivo
                         </span>
                         <div style="text-align: center; position: relative; z-index: 5;">
-                            <x-icon name="ball" size="42" style="opacity: 0.9;" />
-                            <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-top: 4px; color: #a7f3d0;">
+                            <x-icon name="ball" size="38" style="opacity: 0.95; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));" />
+                            <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-top: 4px; color: #a7f3d0; text-shadow: 0 1px 4px rgba(0,0,0,0.7);">
                                 Gras Sintético Monofilamento
                             </div>
                         </div>
@@ -248,10 +267,24 @@
             <a href="{{ route('home') }}" class="btn btn-primary" style="margin-top: 18px;">{{ __('messages.home.view_all') }}</a>
         </div>
     @else
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; align-items: start;">
             @foreach($establecimientos as $est)
-                <div class="card" style="display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border);">
-                    <div style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 20px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: -24px -24px 20px -24px;">
+                @php
+                    $isSanPedro = str_contains(strtolower($est->nombre), 'san pedro');
+                    $amenities = $isSanPedro ? [
+                        ['icon' => 'bulb', 'label' => 'Iluminación LED'],
+                        ['icon' => 'shield', 'label' => 'Gradas techadas'],
+                        ['icon' => 'clock', 'label' => 'Marcador electrónico'],
+                        ['icon' => 'star', 'label' => 'Zona de parrillas'],
+                    ] : [
+                        ['icon' => 'bulb', 'label' => 'Iluminación LED'],
+                        ['icon' => 'users', 'label' => 'Camerinos & Duchas'],
+                        ['icon' => 'star', 'label' => 'Zona de parrillas'],
+                        ['icon' => 'check', 'label' => 'Estacionamiento'],
+                    ];
+                @endphp
+                <div class="card reveal-on-scroll" data-delay="{{ ($loop->index % 4) + 1 }}" style="display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border); transition: transform 0.35s ease, box-shadow 0.35s ease;">
+                    <div style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 20px; border-radius: var(--radius-md) var(--radius-md) 0 0; margin: -24px -24px 18px -24px;">
                         <span style="font-size: 0.75rem; background: var(--primary); padding: 3px 8px; border-radius: 4px; font-weight: 700; text-transform: uppercase;">
                             Coracora • Gras Sintético
                         </span>
@@ -264,20 +297,30 @@
                         </p>
                     </div>
 
-                    <p style="color: #475569; font-size: 0.9rem; margin-bottom: 18px; line-height: 1.5; flex: 1;">
+                    <p style="color: #475569; font-size: 0.9rem; margin-bottom: 14px; line-height: 1.5;">
                         {{ Str::limit($est->descripcion, 120, '...') }}
                     </p>
 
-                    <!-- Lista de canchas de este complejo -->
+                    <!-- Badges / Pills Visuales de Servicios -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px;">
+                        @foreach($amenities as $item)
+                            <span class="complex-feature-pill">
+                                <x-icon :name="$item['icon']" size="13" style="color: var(--primary);" />
+                                {{ $item['label'] }}
+                            </span>
+                        @endforeach
+                    </div>
+
+                    <!-- Lista de canchas de este complejo con sub-tarjetas interactivas -->
                     <div style="background: #f8fafc; padding: 12px; border-radius: var(--radius-sm); margin-bottom: 18px; border: 1px solid #f1f5f9;">
                         <div style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 8px;">
                             {{ __('messages.home.pitches_in_complex') }}
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 8px;">
                             @forelse($est->canchas as $cancha)
-                                <div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 8px 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                <a href="{{ route('canchas.detalle', $cancha->id) }}" class="complex-pitch-card">
                                     <div>
-                                        <strong style="font-size: 0.9rem; color: #1e293b;">{{ $cancha->nombre }}</strong>
+                                        <strong style="font-size: 0.9rem; color: #1e293b; display: block;">{{ $cancha->nombre }}</strong>
                                         <div style="font-size: 0.78rem; color: #64748b;"><x-icon name="users" size="13" /> {{ $cancha->capacidad }} {{ __('messages.home.players_capacity') }}</div>
                                     </div>
                                     <div style="text-align: right;">
@@ -286,7 +329,7 @@
                                         </div>
                                         <span style="font-size: 0.72rem; color: #94a3b8;">/ {{ __('messages.home.per_hour') }}</span>
                                     </div>
-                                </div>
+                                </a>
                             @empty
                                 <div style="font-size: 0.85rem; color: #94a3b8;">{{ __('messages.home.no_active_pitches') }}</div>
                             @endforelse
@@ -323,7 +366,7 @@
 
         <div class="testimonials-grid">
             <!-- Testimonio 1 (Exact Copy del requerimiento) -->
-            <div class="testimonial-card">
+            <div class="testimonial-card reveal-on-scroll" data-delay="1">
                 <div>
                     <div class="star-rating">★★★★★</div>
                     <p class="testimonial-quote">
@@ -340,7 +383,7 @@
             </div>
 
             <!-- Testimonio 2 -->
-            <div class="testimonial-card">
+            <div class="testimonial-card reveal-on-scroll" data-delay="2">
                 <div>
                     <div class="star-rating">★★★★★</div>
                     <p class="testimonial-quote">
@@ -357,7 +400,7 @@
             </div>
 
             <!-- Testimonio 3 -->
-            <div class="testimonial-card">
+            <div class="testimonial-card reveal-on-scroll" data-delay="3">
                 <div>
                     <div class="star-rating">★★★★★</div>
                     <p class="testimonial-quote">
@@ -379,7 +422,7 @@
 <!-- 5. Captación B2B (Sección para Dueños de Canchas / Partners) -->
 <section style="background: #f8fafc; padding: clamp(48px, 6vw, 80px) 20px;">
     <div class="container">
-        <div class="b2b-banner">
+        <div class="b2b-banner reveal-on-scroll">
             <div style="position: absolute; right: -40px; bottom: -40px; width: 240px; height: 240px; background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
 
             <div style="max-width: 720px; position: relative; z-index: 10;">
@@ -427,5 +470,62 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 1. Contador numérico animado para las métricas del Hero
+        const counters = document.querySelectorAll('.hero-counter');
+        if (counters.length > 0) {
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-target')) || 0;
+                const prefix = counter.getAttribute('data-prefix') || '';
+                const suffix = counter.getAttribute('data-suffix') || '';
+                const duration = 1400; // ms
+                let startTime = null;
+
+                function animateStep(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const elapsed = timestamp - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // Ease out exponential curve
+                    const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                    const currentVal = Math.round(easeOut * target);
+
+                    counter.innerHTML = prefix + currentVal + suffix;
+
+                    if (progress < 1) {
+                        window.requestAnimationFrame(animateStep);
+                    } else {
+                        counter.innerHTML = prefix + target + suffix;
+                    }
+                }
+                window.requestAnimationFrame(animateStep);
+            });
+        }
+
+        // 2. IntersectionObserver para aparición suave al hacer scroll
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -30px 0px'
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        } else {
+            // Fallback para navegadores antiguos
+            revealElements.forEach(el => el.classList.add('is-revealed'));
+        }
+    });
+</script>
+@endpush
 
 </x-layouts.app>
