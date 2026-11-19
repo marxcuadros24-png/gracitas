@@ -30,10 +30,15 @@ if [ ! -L public/storage ]; then
     php artisan storage:link --no-interaction || true
 fi
 
-# 5. Migraciones automáticas opcionales
+# 5. Migraciones y Seeders automáticos opcionales
 if [ "$AUTO_MIGRATE" = "true" ] || [ "$MIGRATE" = "true" ]; then
     echo ">> Ejecutando migraciones de base de datos..."
     php artisan migrate --force --no-interaction || echo "Advertencia: No se pudieron ejecutar migraciones automáticas."
+fi
+
+if [ "$AUTO_SEED" = "true" ] || [ "$SEED" = "true" ]; then
+    echo ">> Sembrando datos de prueba iniciales (DatabaseSeeder)..."
+    php artisan db:seed --force --no-interaction || true
 fi
 
 # 6. Optimización en producción
