@@ -1,5 +1,10 @@
 <div align="center">
 
+| <img src="./capturas/logo_iestp.png" width="95" alt="Logo IESTP"> | <div align="center"><strong>INSTITUTO DE EDUCACIÓN SUPERIOR TECNOLÓGICO PÚBLICO</strong><br><span style="color:#087f68; font-weight:700;">PROGRAMA DE ESTUDIOS: ARQUITECTURA DE PLATAFORMAS Y SERVICIOS DE TI (APSTI)</span><br><small>Módulo Formativo: Arquitectura y Programación Web — VI Ciclo</small></div> | <img src="./capturas/logo_apsti.png" width="95" alt="Logo APSTI"> |
+| :---: | :---: | :---: |
+
+<br>
+
 ![Logo GraCitas](../public/images/logo.svg)
 
 # MANUAL DE USUARIO
@@ -9,12 +14,15 @@
 
 ---
 
-| Información del Documento | Detalle |
+| Información Institucional y del Documento | Detalle |
 | :--- | :--- |
-| **Producto** | **GraCitas** — Plataforma Integral de Reservas Deportivas |
-| **Edición** | Versión Comercial 2.0 |
-| **Dirigido a** | Clientes, Propietarios de Complejos y Administradores |
-| **Fecha de Publicación** | Noviembre 2026 |
+| **Institución** | Instituto de Educación Superior Tecnológico Público (IESTP) |
+| **Programa de Estudios** | Arquitectura de Plataformas y Servicios de Tecnologías de Información (APSTI) |
+| **Módulo / Ciclo** | Arquitectura y Programación Web — VI Ciclo |
+| **Producto** | **GraCitas** — Plataforma Integral de Reservas Deportivas en Tiempo Real |
+| **Versión** | Versión Oficial 2.4.4 |
+| **Dirigido a** | Clientes (Deportistas), Propietarios de Complejos y Administradores |
+| **Ámbito y Fecha** | Coracora, Parinacochas, Ayacucho — Noviembre 2026 |
 
 </div>
 
