@@ -16,11 +16,10 @@
 
 | Información Institucional y del Documento | Detalle |
 | :--- | :--- |
-| **Institución** | Instituto de Educación Superior Tecnológico Público (IESTP) |
+| **Docente** | **Ing. JhonDavid Ccoyllo Rojas** |
 | **Programa de Estudios** | Arquitectura de Plataformas y Servicios de Tecnologías de Información (APSTI) |
 | **Módulo / Ciclo** | Arquitectura y Programación Web — VI Ciclo |
-| **Producto** | **GraCitas** — Plataforma Integral de Reservas Deportivas en Tiempo Real |
-| **Versión** | Versión Oficial 2.4.4 |
+| **Plataforma / Proyecto** | **GraCitas** — Plataforma Integral de Reservas Deportivas en Tiempo Real |
 | **Dirigido a** | Clientes (Deportistas), Propietarios de Complejos y Administradores |
 | **Ámbito y Fecha** | Coracora, Parinacochas, Ayacucho — Noviembre 2026 |
 

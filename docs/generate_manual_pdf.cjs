@@ -16,21 +16,56 @@ const b64Iestp = fs.readFileSync(logoIestpPath).toString('base64');
 console.log('Reading MANUAL_DE_USUARIO.html...');
 let html = fs.readFileSync(htmlFilePath, 'utf8');
 
-// 1. Agregar estilos de cabecera institucional
-const extraStyles = `
-        /* Cabecera Institucional IESTP / APSTI */
+// 1. Estilos optimizados y compactos para la Carátula (1 sola hoja A4)
+const coverStyles = `
+        /* Carátula / Cover Page (Exactamente 1 página A4 sin desborde) */
+        .cover-page {
+            box-sizing: border-box;
+            height: 252mm;
+            max-height: 252mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 35%, #f0fdf9 100%);
+            page-break-after: always !important;
+            break-after: page !important;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover-top-bar {
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #064e3b 0%, #087f68 50%, #10b981 100%);
+            border-radius: 12px 12px 0 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .cover-bottom-bar {
+            width: 100%;
+            height: 7px;
+            background: linear-gradient(90deg, #087f68 0%, #10b981 100%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
         .cover-institutional-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 90%;
-            margin-top: 14px;
-            margin-bottom: 12px;
-            padding: 10px 18px;
+            width: 92%;
+            margin-top: 6px;
+            margin-bottom: 6px;
+            padding: 8px 16px;
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            box-shadow: 0 4px 14px rgba(8, 127, 104, 0.06);
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(8, 127, 104, 0.05);
             z-index: 2;
         }
         .inst-logo-wrap {
@@ -40,51 +75,126 @@ const extraStyles = `
             justify-content: center;
         }
         .inst-logo {
-            height: 58px;
-            max-width: 110px;
+            height: 48px;
+            max-width: 95px;
             object-fit: contain;
             display: block;
         }
         .inst-text {
             flex: 1 1 auto;
             text-align: center;
-            padding: 0 14px;
+            padding: 0 12px;
         }
         .inst-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 9pt;
+            font-size: 8.8pt;
             font-weight: 800;
             color: var(--dark);
             letter-spacing: 0.5px;
-            line-height: 1.25;
+            line-height: 1.2;
             text-transform: uppercase;
         }
         .inst-career {
-            font-size: 8.5pt;
+            font-size: 8pt;
             font-weight: 700;
             color: var(--primary);
             margin-top: 2px;
-            line-height: 1.25;
+            line-height: 1.2;
         }
         .inst-course {
-            font-size: 7.8pt;
+            font-size: 7.5pt;
             font-weight: 600;
             color: var(--muted);
-            margin-top: 2px;
+            margin-top: 1px;
+        }
+        .cover-logo-box {
+            margin-top: 6px;
+            padding: 10px 24px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(8, 127, 104, 0.06);
+        }
+        .cover-logo-box svg {
+            width: 155px;
+            height: auto;
+            display: block;
+        }
+        .cover-center {
+            padding: 0 15px;
+            margin: 8px 0;
+        }
+        .cover-badge {
+            display: inline-block;
+            background: #e6f6f2;
+            color: var(--primary);
+            border: 1px solid #a7f3d0;
+            padding: 3px 14px;
+            border-radius: 9999px;
+            font-size: 8pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .cover-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22pt;
+            font-weight: 900;
+            color: var(--dark);
+            line-height: 1.1;
+            margin: 0 0 6px 0;
+            letter-spacing: -0.5px;
+        }
+        .cover-subtitle {
+            font-family: 'Outfit', sans-serif;
+            font-size: 11.5pt;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+            margin: 0 0 6px 0;
+        }
+        .cover-desc {
+            font-size: 9pt;
+            line-height: 1.35;
+            color: var(--muted);
+            max-width: 520px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .cover-meta-card {
+            width: 88%;
+            margin-bottom: 10px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 10px 18px;
+            text-align: left;
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+        }
+        .cover-meta-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            font-size: 8.8pt;
+        }
+        .cover-meta-row:last-child {
+            border-bottom: none;
+        }
+        .cover-meta-label {
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .cover-meta-value {
+            color: #475569;
         }
 `;
 
-// Insertar estilos antes de </style>
-if (!html.includes('.cover-institutional-header')) {
-    html = html.replace('</style>', extraStyles + '\n    </style>');
-}
+// Reemplazar la sección de estilos de la carátula
+html = html.replace(/\/\* Carátula[\s\S]*?\/\* Contenido \*\//, coverStyles + '\n        /* Contenido */');
 
-// Ajustar márgenes para que la carátula no se desborde en A4
-html = html.replace(/\.cover-logo-box\s*\{[\s\S]*?margin-top:\s*\d+px;/, '.cover-logo-box {\n            margin-top: 12px;');
-html = html.replace(/\.cover-center\s*\{[\s\S]*?margin:\s*\d+px 0;/, '.cover-center {\n            padding: 0 25px;\n            margin: 18px 0;');
-html = html.replace(/font-size:\s*34pt;/, 'font-size: 28pt;');
-
-// 2. Construir la nueva carátula
+// 2. Construir la nueva carátula sin repetición institucional ni versión, e incluyendo al Docente
 const newCover = `    <!-- CARÁTULA -->
     <section class="cover-page">
         <div class="cover-top-bar"></div>
@@ -131,18 +241,20 @@ const newCover = `    <!-- CARÁTULA -->
   <text x="320" y="450" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="500" letter-spacing="3" fill="#687477">RESERVA TU CANCHA</text>
 </svg>
         </div>
+
         <div class="cover-center">
             <span class="cover-badge">Documentación Oficial del Sistema — Edición Académica & Comercial</span>
             <h1 class="cover-title">MANUAL DE USUARIO</h1>
             <p class="cover-subtitle">Sistema Web de Gestión y Reserva de Canchas de Gras Sintético</p>
             <p class="cover-desc">
-                Guía oficial y completa de operación para deportistas (clientes), propietarios de complejos deportivos y administradores de la plataforma <strong>GraCitas</strong>.
+                Guía completa de operación para deportistas (clientes), propietarios de complejos deportivos y administradores de la plataforma <strong>GraCitas</strong>.
             </p>
         </div>
+
         <div class="cover-meta-card">
             <div class="cover-meta-row">
-                <span class="cover-meta-label">Institución</span>
-                <span class="cover-meta-value">Instituto de Educación Superior Tecnológico Público (IESTP)</span>
+                <span class="cover-meta-label">Docente</span>
+                <span class="cover-meta-value"><strong>Ing. JhonDavid Ccoyllo Rojas</strong></span>
             </div>
             <div class="cover-meta-row">
                 <span class="cover-meta-label">Programa de Estudios</span>
@@ -153,18 +265,15 @@ const newCover = `    <!-- CARÁTULA -->
                 <span class="cover-meta-value">Arquitectura y Programación Web — VI Ciclo</span>
             </div>
             <div class="cover-meta-row">
-                <span class="cover-meta-label">Plataforma</span>
+                <span class="cover-meta-label">Plataforma / Proyecto</span>
                 <span class="cover-meta-value">GraCitas — Reservas Deportivas en Tiempo Real</span>
-            </div>
-            <div class="cover-meta-row">
-                <span class="cover-meta-label">Versión de Sistema</span>
-                <span class="cover-meta-value">Versión Oficial 2.4.4</span>
             </div>
             <div class="cover-meta-row">
                 <span class="cover-meta-label">Ámbito Geográfico & Fecha</span>
                 <span class="cover-meta-value">Coracora, Parinacochas, Ayacucho — Noviembre 2026</span>
             </div>
         </div>
+
         <div class="cover-bottom-bar"></div>
     </section>`;
 
